@@ -1,330 +1,276 @@
 {
   "sample-eviction": {
-    "whatThisIs": "This is a \"pay or quit\" eviction notice from your landlord, Maple Court Holdings LLC. It says you owe rent and gives you a short window to either pay in full or move out before the landlord goes to court.",
-    "plainSummary": "Your landlord says you owe $1,850.00 in September rent plus a $75.00 late fee, for a total of $1,925.00. You have five days from when the notice was served to pay the full amount by money order or cashier's check, or to move out. The notice names October 6, 2026 as the last day. If neither happens, the landlord says it will file an unlawful detainer case, which is the court process for eviction. Partial payments are not accepted unless the landlord agrees in writing. The notice also points you to the Springfield Tenant Resource Line for rental assistance.",
+    "whatThisIs": "Notice to Pay Rent or Quit from your landlord demanding overdue rent and fees or asking you to move out.",
+    "plainSummary": "This is a formal notice from Maple Court Holdings LLC stating that you owe $1,925.00 ($1,850.00 for September 2026 rent plus a $75.00 late fee) for the apartment at 482 Fictional Lane, Apartment 3B. The notice demands that you pay the full amount or move out. If payment is not made or the property is not vacated, the landlord states they will file an unlawful detainer eviction lawsuit after October 6, 2026. Payment must be made by money order or cashier's check.",
     "keyPoints": [
-      "You owe a stated total of $1,925.00 ($1,850.00 rent plus a $75.00 late fee).",
-      "Pay in full or move out on or before October 6, 2026; the notice gives five days after service.",
-      "Payment must be by money order or cashier's check, and partial payments will be refused unless agreed in writing.",
-      "If you do neither, the landlord says it will start an unlawful detainer (eviction) case in court.",
-      "An eviction judgment can show up on tenant screening reports and make renting harder later.",
-      "Rental assistance may be available through the Springfield Tenant Resource Line."
+      "You are being asked to pay $1,925.00 in total, which covers September 2026 rent and a late fee.",
+      "Payments must be made in full using a cashier's check or money order; partial payments are not accepted unless agreed in writing.",
+      "If the amount is not paid or the home is not vacated by October 6, 2026, the landlord plans to file an eviction case in court.",
+      "You should consult a licensed legal professional or local legal-aid organisation to confirm your deadlines and legal rights before making a decision."
     ],
     "optionNotes": [
       {
         "optionId": "eviction_notice-pay-or-cure-and-stay",
-        "whatItMeansForYou": "If you can gather $1,925.00 by October 6, 2026 and pay it by money order or cashier's check, this notice is usually satisfied and you stay. Get a receipt and keep it, as the notice itself tells you to."
+        "whatItMeansForYou": "You can pay the full $1,925.00 by cashier's check or money order to Maple Court Holdings LLC to resolve the demand and remain in your home. Be sure to keep a copy of your receipt."
       },
       {
         "optionId": "eviction_notice-negotiate-move-out",
-        "whatItMeansForYou": "If paying in full is not possible, you could ask the landlord in writing for a move-out date that gives you more time, or for a payment plan. The notice says partial payments need the landlord's written agreement, so anything you agree must be in writing."
+        "whatItMeansForYou": "You can try to reach an agreement with your landlord on a move-out date to avoid an eviction lawsuit being filed on your record. Any agreement should be confirmed in writing."
       },
       {
         "optionId": "eviction_notice-contest-in-court",
-        "whatItMeansForYou": "Nothing happens in court until the landlord files the unlawful detainer case. If it does, you will get court papers and a chance to respond. Possible defences include the amount being wrong, payments already made, or the notice not being served correctly."
+        "whatItMeansForYou": "If you believe the notice is incorrect or you have legal defenses, you can respond in court if the landlord files an unlawful detainer action after October 6, 2026."
       },
       {
         "optionId": "eviction_notice-seek-legal-aid",
-        "whatItMeansForYou": "With only days on the clock, calling the Springfield Tenant Resource Line or a local legal-aid office today is the fastest way to find out about rental assistance and your rights before the deadline passes."
+        "whatItMeansForYou": "You can reach out to a legal-aid group or call the Springfield Tenant Resource Line mentioned in the notice to ask about rental assistance and get legal guidance."
       }
     ],
     "checklist": [
       {
-        "id": "ck-0",
-        "text": "By October 6, 2026: pay $1,925.00 in full by money order or cashier's check, or move out.",
+        "id": "ck-1",
+        "text": "Review the total amount demanded ($1,925.00) against your own bank and rent payment records.",
         "relatedDeadlineId": "dl-1"
       },
       {
-        "id": "ck-1",
-        "text": "If you plan to leave, return the keys and possession to the landlord by October 6, 2026.",
-        "relatedDeadlineId": "dl-0"
-      },
-      {
         "id": "ck-2",
-        "text": "Check your own records: was September rent really unpaid, and is the $75.00 late fee allowed by your lease?",
-        "relatedDeadlineId": null
+        "text": "Decide whether to pay the full balance via money order or cashier's check by the initial five-day deadline.",
+        "relatedDeadlineId": "dl-1"
       },
       {
         "id": "ck-3",
-        "text": "Call the Springfield Tenant Resource Line about rental assistance.",
+        "text": "Contact the Springfield Tenant Resource Line or a legal-aid organisation to ask about emergency rental assistance.",
         "relatedDeadlineId": null
       },
       {
         "id": "ck-4",
-        "text": "Keep a copy of any payment receipt, as the notice requires.",
-        "relatedDeadlineId": null
+        "text": "Obtain and safely store a written receipt or proof of payment if you deliver funds.",
+        "relatedDeadlineId": "dl-3"
       },
       {
         "id": "ck-5",
-        "text": "Keep the notice and its envelope, and write down the date and way you received it.",
-        "relatedDeadlineId": null
+        "text": "Confirm any court filing dates with a legal professional before the October 6, 2026 deadline.",
+        "relatedDeadlineId": "dl-2"
       }
     ],
     "prepSheet": {
       "questionsForProfessional": [
-        "Was this notice served the way our local law requires, and does the five-day count start from the date it says?",
-        "If I pay the full $1,925.00 by October 6, can the landlord still evict me?",
-        "Is the $75.00 late fee allowed under my lease and local rules?",
-        "Can rental assistance pay this directly, and will the landlord have to accept it?",
-        "What happens at each step if the landlord files the unlawful detainer case?"
+        "Does this notice meet the legal requirements for service and notice periods in Springfield?",
+        "Can the landlord legally reject a partial payment if I cannot pay the full $1,925.00 at once?",
+        "What steps must I take if the landlord files an unlawful detainer lawsuit after October 6, 2026?",
+        "Am I eligible for any local tenant emergency assistance programs to cover the rent owed?"
       ],
       "documentsToGather": [
-        "Your lease and any written changes to it",
-        "Rent receipts, bank statements or payment-app history for the last few months",
-        "The notice itself and the envelope or note showing how it arrived",
-        "Any messages from Maple Court Holdings or the property manager",
-        "Photos and requests about any repair problems in the apartment"
+        "A copy of the Notice to Pay Rent or Quit dated September 28, 2026",
+        "Your signed lease agreement for 482 Fictional Lane, Apartment 3B",
+        "Bank statements, receipts, or canceled checks showing past rent payments",
+        "Any written messages or emails between you and Maple Court Holdings LLC"
       ],
       "factsToWriteDown": [
-        "The exact date and way the notice was delivered to you",
-        "How much rent you believe you owe and why, if it differs from $1,925.00",
-        "Names and contact details for the landlord and property manager",
-        "Any past conversations about late payments or payment plans"
+        "The date and method by which this notice was delivered to you",
+        "The exact date and amount of your last rent payment",
+        "Any communications you have had with Maple Court Holdings LLC regarding September rent"
       ]
     },
     "termsExplained": [
       {
-        "term": "pay or quit",
-        "meaning": "Pay what the notice says you owe, or move out, by the deadline."
+        "term": "Pay Rent or Quit",
+        "meaning": "A formal notice instructing a tenant to pay past-due rent within a set time or move out of the rental unit."
       },
       {
-        "term": "unlawful detainer",
-        "meaning": "The court case a landlord files to remove a tenant. This notice is not that case yet."
+        "term": "Unlawful Detainer",
+        "meaning": "A court lawsuit brought by a landlord to legally evict a tenant and regain control of the rental property."
       },
       {
-        "term": "deliver possession",
-        "meaning": "Move out and hand the home back to the landlord, usually by returning the keys."
+        "term": "Vacate",
+        "meaning": "To completely move yourself and your belongings out of the rental home and surrender it to the landlord."
       },
       {
-        "term": "tenant screening services",
-        "meaning": "Companies landlords use to check a renter's history; an eviction judgment can appear there."
+        "term": "Premises",
+        "meaning": "The specific rental property described in the notice, such as your apartment unit."
       },
       {
-        "term": "calendar days",
-        "meaning": "Every day counts, including weekends and holidays, unless the document says otherwise."
+        "term": "Service",
+        "meaning": "The formal delivery of a legal notice or court document to a person in accordance with legal rules."
       }
     ]
   },
   "sample-summons": {
-    "whatThisIs": "This is a civil court summons from the Example County District Court. Northbridge Auto Finance Inc. has sued you over a car loan, and the summons tells you how long you have to answer.",
-    "plainSummary": "Northbridge Auto Finance says you owe $4,850.00 in missed loan payments plus $312.40 in interest and court costs. You must file a written answer with the Clerk of the Court and send a copy to the plaintiff's lawyer within 30 days after the day you were served, which the summons says was October 2, 2026. If you do not answer in time, the court can enter a default judgment against you, which could lead to wage garnishment or a lien on property. A case management hearing is set for November 12, 2026 at 9:00 a.m. in Courtroom 4, and you must attend in person or through a lawyer.",
+    "whatThisIs": "A court summons in a civil lawsuit.",
+    "plainSummary": "Northbridge Auto Finance Inc. is suing you in District Court for $4,850.00 in unpaid loan instalments, plus $312.40 in interest and court costs. You must respond in writing within 30 days of receiving this notice and attend a court hearing on November 12, 2026. If you do not answer in time, the court may enter an automatic judgment against you, which could lead to wage garnishment or property liens. You should consult a licensed legal professional or legal-aid organisation to decide what to do.",
     "keyPoints": [
-      "You are being sued for $4,850.00 plus $312.40 interest and court costs, case number 26-CV-04471.",
-      "File a written answer within 30 days after service (served October 2, 2026, not counting that day).",
-      "Send a copy of your answer to the plaintiff's lawyers, Fictional & Partners.",
-      "Missing the deadline can mean a default judgment for the full amount without another warning.",
-      "You must appear at the hearing on November 12, 2026 at 9:00 a.m. in Courtroom 4.",
-      "The court's self-help centre can point you to legal aid and fee waivers if you cannot afford a lawyer."
+      "You are being sued for $4,850.00 plus $312.40 in interest and court costs.",
+      "You must file a written answer with the court clerk and send a copy to the plaintiff's attorney within 30 days.",
+      "A case management hearing is scheduled for November 12, 2026, at 9:00 a.m. in Courtroom 4.",
+      "Failing to respond could result in a default judgment against you, property liens, or garnished wages."
     ],
     "optionNotes": [
       {
         "optionId": "court_summons-file-answer",
-        "whatItMeansForYou": "Filing an answer within the 30-day window keeps your right to be heard. The court's self-help centre usually has a form; you will also need to send a copy to Fictional & Partners at 15 Example Plaza."
+        "whatItMeansForYou": "You write and file an official answer with the court to state your side and prevent the other party from winning automatically. Check with a legal professional or court self-help centre on how to file."
       },
       {
         "optionId": "court_summons-request-extension",
-        "whatItMeansForYou": "If 30 days is not enough, ask the plaintiff's lawyer in writing for more time and confirm any agreement with the court before the original deadline. An informal promise is not enough on its own."
+        "whatItMeansForYou": "You can ask for extra time to prepare your response before the original deadline passes. Confirm any agreement or request in writing with the court or a lawyer."
       },
       {
         "optionId": "court_summons-consult-counsel",
-        "whatItMeansForYou": "A lawyer or legal-aid office can check whether the amounts are right, whether you were served properly, and whether you have defences. The summons itself points you to the self-help centre for legal aid and fee waivers."
+        "whatItMeansForYou": "You contact a licensed attorney or a legal-aid organisation right away to review your case and identify any legal defences before your deadline runs out."
       },
       {
         "optionId": "court_summons-understand-default",
-        "whatItMeansForYou": "If you do nothing, Northbridge can ask for a default judgment for the full amount plus costs, and the summons warns that a judgment can lead to wage garnishment or a lien on your property."
+        "whatItMeansForYou": "Doing nothing means the plaintiff can ask for a default judgment, which may allow them to take money from your wages or place a lien on your property without your input."
       }
     ],
     "checklist": [
       {
-        "id": "ck-0",
-        "text": "File your written answer with the Clerk of the Court within 30 days after October 2, 2026.",
-        "relatedDeadlineId": "dl-0"
-      },
-      {
         "id": "ck-1",
-        "text": "Serve a copy of your answer on Fictional & Partners, 15 Example Plaza, Springfield.",
+        "text": "File a written answer with the Clerk of the Court and serve a copy on the plaintiff's attorney.",
         "relatedDeadlineId": "dl-0"
       },
       {
         "id": "ck-2",
-        "text": "Attend the case management hearing on November 12, 2026 at 9:00 a.m., Courtroom 4.",
+        "text": "Attend the case management hearing in Courtroom 4 in person or through an attorney.",
         "relatedDeadlineId": "dl-1"
       },
       {
         "id": "ck-3",
-        "text": "Ask the court's self-help centre about legal aid and a fee waiver.",
-        "relatedDeadlineId": null
-      },
-      {
-        "id": "ck-4",
-        "text": "Gather your loan agreement and payment records to compare with the $4,850.00 claimed.",
-        "relatedDeadlineId": null
-      },
-      {
-        "id": "ck-5",
-        "text": "Keep the summons, the complaint and the envelope, and note how you were served.",
+        "text": "Contact a licensed attorney, legal-aid organisation, or the court self-help centre to discuss your options.",
         "relatedDeadlineId": null
       }
     ],
     "prepSheet": {
       "questionsForProfessional": [
-        "What exact date is my answer due, and how do I file it with this court?",
-        "Was I served properly on October 2, 2026?",
-        "Do I have defences, for example payments not credited or a wrong balance?",
-        "Can I get a fee waiver or free representation for this case?",
-        "What will happen at the November 12 hearing, and what should I bring?"
+        "What legal defences can I raise against this debt claim?",
+        "How do I correctly file and serve an answer before the deadline?",
+        "Do I qualify for a fee waiver or free legal aid for this case?",
+        "What will happen at the November 12 case management hearing?"
       ],
       "documentsToGather": [
-        "The summons and the complaint that came with it",
-        "The car loan agreement and any statements from Northbridge Auto Finance",
-        "Proof of every payment you made on the loan",
-        "Any letters, emails or texts about missed payments or repossession",
-        "Proof of when and how you received the summons"
+        "The court summons and attached complaint.",
+        "Loan agreements or contracts with Northbridge Auto Finance Inc.",
+        "Payment receipts, bank statements, or records of loan instalments.",
+        "Any letters or emails exchanged with the lender or their attorneys."
       ],
       "factsToWriteDown": [
-        "Case number 26-CV-04471, the court name and the date on the summons",
-        "The date and way you were served (the summons says October 2, 2026)",
-        "The amounts claimed ($4,850.00 plus $312.40 interest) and anything you disagree with",
-        "Key dates in the loan: when you signed, when payments stopped and why"
+        "The exact date and method by which you received the summons.",
+        "Any loan payments you made, including dates and amounts.",
+        "Any disputes or communications you had with the lender regarding the balance.",
+        "Your current financial circumstances if applying for a fee waiver."
       ]
     },
     "termsExplained": [
       {
-        "term": "summons",
-        "meaning": "The official notice that you are being sued and must respond by a deadline."
+        "term": "Summons",
+        "meaning": "An official court notice ordering someone to respond to a lawsuit."
       },
       {
-        "term": "complaint",
-        "meaning": "The document attached to the summons that explains what the plaintiff claims you did."
+        "term": "Complaint",
+        "meaning": "The written document filed by the plaintiff that explains the claims against you and the money sought."
       },
       {
-        "term": "answer",
-        "meaning": "Your written response to the complaint, filed with the court and sent to the other side."
+        "term": "Answer",
+        "meaning": "A formal written response filed with the court to address each claim made in the complaint."
       },
       {
-        "term": "default judgment",
-        "meaning": "A decision against you made because you did not respond in time."
+        "term": "Default judgment",
+        "meaning": "A court ruling made against you automatically because you did not file a response or appear in time."
       },
       {
-        "term": "garnish wages",
-        "meaning": "Take money directly from your pay cheque to satisfy a court judgment."
+        "term": "Garnish wages",
+        "meaning": "A legal process that allows money to be taken directly from your paycheck to pay a debt."
       },
       {
-        "term": "lien",
-        "meaning": "A legal claim on your property that must be paid before you can sell it."
-      },
-      {
-        "term": "case management hearing",
-        "meaning": "A first court date where the judge sets the schedule for the case."
+        "term": "Lien",
+        "meaning": "A legal claim placed on your property that prevents you from selling it without paying the debt."
       }
     ]
   },
   "sample-debt": {
-    "whatThisIs": "This is a debt-collection validation notice from Harborline Recovery Services, a debt collector. It says you owe $2,317.45 on a Riverbank Card Services account and explains your right to dispute the debt within 30 days.",
-    "plainSummary": "Harborline Recovery Services is collecting a credit-card debt it says you owe to Riverbank Card Services. The balance is $2,317.45, which includes $187.20 in interest and $45.00 in fees. You have 30 days from the day you receive the letter to dispute the debt in writing. If you do, the collector must get proof of the debt and mail it to you, and it must pause collection until then. You can also ask in writing for the original creditor's name and address. If you do not dispute within 30 days, the collector will treat the debt as valid, and it says it may report the account to credit bureaus after November 2, 2026.",
+    "whatThisIs": "A debt collection validation notice from Harborline Recovery Services claiming you owe money on an account with Riverbank Card Services.",
+    "plainSummary": "Harborline Recovery Services sent you a debt validation notice claiming you owe $2,317.45 for an account ending in 7731 with Riverbank Card Services. This total includes $187.20 in interest and $45.00 in fees. You have 30 days from when you receive the letter to dispute the debt or ask for the original creditor's details in writing. If you dispute it, the collector must pause collection until they mail you verification. If you do not dispute it within 30 days, they will assume the debt is valid. They may also report this account to credit reporting agencies after November 2, 2026.",
     "keyPoints": [
-      "The collector claims $2,317.45 on account ending 7731, including $187.20 interest and $45.00 fees.",
+      "The collector claims you owe a total balance of $2,317.45.",
       "You have 30 days from receiving the letter to dispute the debt in writing.",
-      "A written dispute pauses collection until the collector mails you verification.",
-      "You can also ask, in writing, for the original creditor's name and address.",
-      "The collector may report the account to credit reporting agencies after November 2, 2026.",
-      "Disputes must go to Harborline Recovery Services, PO Box 1000, Springfield."
+      "If you dispute it on time, collection must pause until they send verification.",
+      "If you do not dispute it within 30 days, the collector will assume the debt is valid.",
+      "The collector notes they may report the account to credit bureaus after November 2, 2026."
     ],
     "optionNotes": [
       {
         "optionId": "debt_collection-dispute-in-writing",
-        "whatItMeansForYou": "Sending a written dispute within 30 days of receiving the letter forces Harborline to pause collection and mail you verification. Send it to PO Box 1000, Springfield, by a method that proves delivery, and keep a copy."
+        "whatItMeansForYou": "You can send a letter stating you dispute the debt. Doing this within the 30-day window stops collection activity until the collector sends verification. Confirm your strategy with a legal-aid organization or licensed legal professional."
       },
       {
         "optionId": "debt_collection-request-verification",
-        "whatItMeansForYou": "In the same letter you can ask for the name and address of the original creditor and for documents showing the $2,317.45 balance and how the $187.20 interest and $45.00 fees were calculated."
+        "whatItMeansForYou": "You can ask in writing for documents proving you owe the money and the name and address of the original creditor. This helps clarify if the amounts and fees are correct."
       },
       {
         "optionId": "debt_collection-negotiate-payment",
-        "whatItMeansForYou": "The letter invites you to discuss payment options. If the debt is yours and the amount is right, a payment plan or settlement may be possible, but get any offer in writing before sending money."
+        "whatItMeansForYou": "You may choose to contact the collector to negotiate a settlement or payment plan, but talk to a legal professional first to avoid restarting legal time limits."
       },
       {
         "optionId": "debt_collection-check-time-limit",
-        "whatItMeansForYou": "Old debts may be past the time limit for a lawsuit even though a collector can still ask you to pay. Note the date of your last payment to Riverbank Card Services and ask a professional whether the limit has passed before paying anything."
+        "whatItMeansForYou": "You can review how old the debt is to see if the legal time limit to sue has passed. Consult a licensed legal professional before acknowledging old debts."
       }
     ],
     "checklist": [
       {
-        "id": "ck-0",
-        "text": "Within 30 days of receiving the letter: send a written dispute and verification request to PO Box 1000, Springfield.",
+        "id": "ck-1",
+        "text": "Note the exact date you received this letter to calculate your 30-day deadline.",
         "relatedDeadlineId": "dl-0"
       },
       {
-        "id": "ck-1",
-        "text": "Before November 2, 2026: check whether your dispute has been received so the account is not reported as valid.",
-        "relatedDeadlineId": "dl-2"
-      },
-      {
         "id": "ck-2",
-        "text": "Compare the $2,317.45 balance with your own Riverbank Card Services statements.",
-        "relatedDeadlineId": null
+        "text": "Decide whether to send a written dispute or verification request to PO Box 1000, Springfield, and speak with a legal professional before choosing.",
+        "relatedDeadlineId": "dl-0"
       },
       {
         "id": "ck-3",
-        "text": "Write down the date of your last payment on the account.",
-        "relatedDeadlineId": null
-      },
-      {
-        "id": "ck-4",
-        "text": "Keep a copy of your dispute letter and proof that it was delivered.",
-        "relatedDeadlineId": null
-      },
-      {
-        "id": "ck-5",
-        "text": "Keep the letter and envelope, and note the date you received it.",
-        "relatedDeadlineId": null
+        "text": "Monitor your credit reports and check for updates after the November 2, 2026 reporting date.",
+        "relatedDeadlineId": "dl-2"
       }
     ],
     "prepSheet": {
       "questionsForProfessional": [
-        "Is this debt actually mine, and is $2,317.45 the right amount?",
-        "How should I word my written dispute, and what happens after I send it?",
-        "Is this debt too old for Harborline to sue on where I live?",
-        "Could making a small payment restart the time limit?",
-        "Can the collector report this to credit bureaus after November 2, 2026 if I have disputed it?"
+        "Does this letter meet all requirements for a debt collection validation notice?",
+        "Has the time limit to file a lawsuit on this Riverbank Card Services account expired?",
+        "What exact wording should I use in my written dispute letter?",
+        "How could making a payment or acknowledging the debt affect my legal rights?"
       ],
       "documentsToGather": [
-        "This validation notice and any earlier letters from Harborline",
-        "Statements from Riverbank Card Services for account ending 7731",
-        "Records of any payments you made on the account",
-        "A recent copy of your credit report"
+        "The letter received from Harborline Recovery Services and its mailing envelope.",
+        "Any past statements, payment records, or contracts related to account ending in 7731.",
+        "Any past communications with Riverbank Card Services.",
+        "Recent copies of your credit reports."
       ],
       "factsToWriteDown": [
-        "The date you received the letter, so you can count the 30-day dispute window",
-        "The date of your last payment on the account",
-        "Every call or message from Harborline, with dates and times",
-        "Anything about the balance, interest or fees that looks wrong"
+        "The date you received the letter in the mail.",
+        "The date of your last payment or charge on the original Riverbank Card Services account.",
+        "Whether you recognize the account number ending in 7731.",
+        "Whether you have received other calls or letters regarding this specific balance."
       ]
     },
     "termsExplained": [
       {
         "term": "validation notice",
-        "meaning": "The letter a collector must send describing the debt and your right to dispute it."
+        "meaning": "A required letter from a debt collector that states the amount owed, the creditor, and your rights to dispute the debt."
       },
       {
         "term": "debt collector",
-        "meaning": "A company that collects money on behalf of, or after buying the debt from, the original lender."
+        "meaning": "A company or person that regularly collects debts owed to someone else."
       },
       {
         "term": "original creditor",
-        "meaning": "The company you first owed the money to, here Riverbank Card Services."
+        "meaning": "The company that originally gave you the credit or loan, such as the bank that issued the credit card."
       },
       {
         "term": "verification of the debt",
-        "meaning": "Proof from the collector that the debt exists, is yours and is for the stated amount."
+        "meaning": "Proof or documentation provided by a collector showing that you owe the money and that the collector has the right to collect it."
       },
       {
         "term": "credit reporting agencies",
-        "meaning": "The companies that keep your credit report; a collection account there can lower your score."
-      },
-      {
-        "term": "calendar days",
-        "meaning": "Every day counts, including weekends and holidays, unless the document says otherwise."
+        "meaning": "Companies that track your credit history and provide credit scores and reports to lenders and businesses."
       }
     ]
   }
