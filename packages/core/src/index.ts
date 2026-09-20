@@ -1,1 +1,13 @@
 export * from './types.ts';
+export { classifyDocument } from './classify.ts';
+export { extractDeadlines } from './deadlines.ts';
+export { extractObligations } from './obligations.ts';
+export { extractAmounts } from './amounts.ts';
+export { getOptions } from './options.ts';
+export { buildTimeline } from './timeline.ts';
+export { sanitizeText, MAX_INPUT_CHARS, MIN_INPUT_WORDS } from './sanitize.ts';
+export { analyzeDocument, CoreError } from './analyze.ts';
+export type { CoreErrorCode } from './analyze.ts';
+export { buildFallbackBriefing, buildFallbackAnswer } from './fallback.ts';
+export { SAMPLE_NOTICES } from './samples.ts';
+export { parseDateToken, addDays, toIsoDate, daysBetween } from './dates.ts';
