@@ -1,0 +1,50 @@
+// @ts-check
+import js from '@eslint/js';
+import { defineConfig } from 'eslint/config';
+import globals from 'globals';
+import svelte from 'eslint-plugin-svelte';
+import tseslint from 'typescript-eslint';
+
+/** Complexity budgets keep every module small enough to read in one sitting. */
+const budgets = {
+  complexity: ['error', 10],
+  'max-lines-per-function': ['error', { max: 60, skipBlankLines: true, skipComments: true }],
+  'max-lines': ['error', { max: 250, skipBlankLines: true, skipComments: true }],
+  'max-depth': ['error', 3],
+  'max-params': ['error', 4],
+};
+
+export default defineConfig(
+  { ignores: ['**/node_modules/**', '**/dist/**', '**/coverage/**', '**/.svelte-kit/**'] },
+  js.configs.recommended,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
+  svelte.configs['flat/recommended'],
+  svelte.configs['flat/prettier'],
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: { allowDefaultProject: ['*.js', '*.ts'] },
+        tsconfigRootDir: import.meta.dirname,
+        extraFileExtensions: ['.svelte'],
+      },
+      globals: { ...globals.node, ...globals.browser },
+    },
+    rules: { ...budgets },
+  },
+  { files: ['eslint.config.js'], extends: [tseslint.configs.disableTypeChecked] },
+  {
+    files: ['**/*.svelte', '**/*.svelte.ts'],
+    languageOptions: { parserOptions: { parser: tseslint.parser } },
+  },
+  {
+    files: ['**/*.test.ts', '**/*.spec.ts', '**/vitest.setup.ts'],
+    rules: {
+      'max-lines-per-function': 'off',
+      'max-lines': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
+  },
+);
