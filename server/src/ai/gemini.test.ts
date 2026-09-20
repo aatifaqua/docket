@@ -91,11 +91,14 @@ describe('gemini client', () => {
 
   it('throws after the whole chain fails and starts later calls at the last working model', async () => {
     const generate = vi.fn<GenerateContentFn>(() => fail('boom'));
-    const client = createGeminiClientFrom(generate);
+    const onModelFailure = vi.fn<(model: string, message: string) => void>();
+    const client = createGeminiClientFrom(generate, onModelFailure);
     await expect(client.generateJson(schema, 's', 'u', parse)).rejects.toThrow(
       /All Gemini models failed: boom/,
     );
     expect(generate).toHaveBeenCalledTimes(3);
+    expect(onModelFailure.mock.calls.map(([model]) => model)).toEqual([...MODEL_CHAIN]);
+    expect(onModelFailure).toHaveBeenLastCalledWith('gemini-3.5-flash', 'boom');
 
     generate.mockReset();
     generate.mockImplementationOnce(() => fail('nope')).mockImplementation(() => ok(9));

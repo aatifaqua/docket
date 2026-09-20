@@ -9,7 +9,7 @@ import {
 import type { Analysis, Answer, Briefing, CoreAnalysis } from '@docket/core';
 import demoBriefings from './demo-briefings.json';
 
-const REQUEST_TIMEOUT_MS = 25_000;
+const REQUEST_TIMEOUT_MS = 60_000;
 
 /** Plain-language messages for the HTTP statuses the server documents. */
 const HTTP_MESSAGES: Readonly<Record<number, string>> = {

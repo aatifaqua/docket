@@ -35,7 +35,12 @@ const logger = createLogger();
 const config = loadConfig();
 const briefingService =
   config.aiMode === 'live' && config.apiKey !== undefined
-    ? createGeminiBriefingService(createGeminiClient(config.apiKey), logger)
+    ? createGeminiBriefingService(
+        createGeminiClient(config.apiKey, (model, message) => {
+          logger.warn('gemini_model_failed', { model, message });
+        }),
+        logger,
+      )
     : createMockBriefingService();
 
 const app = createApp({ config, briefingService, store: new AnalysisStore(), logger });

@@ -56,7 +56,7 @@ docket/
 │   └── src/
 │       ├── App.svelte      shell: skip link, header, main, footer, view switch
 │       ├── lib/api.ts      fetch client; falls back to in-browser core in demo mode
-│       ├── lib/demo.ts     three sample notices + pre-generated briefings for Pages
+│       ├── lib/demo-briefings.json  pre-generated Gemini briefings for the three samples
 │       ├── views/          Intake.svelte, Results.svelte (lazy-loaded)
 │       ├── components/     Disclaimer, Timeline, Options, Checklist, PrepSheet,
 │       │                   Terms, AskPanel, SeverityBadge, FileDrop, SampleChips
@@ -254,7 +254,7 @@ Every module ships a colocated `*.test.ts`; `packages/core` enforces 100 % cover
   in the browser and pairs it with pre-generated briefings for the three samples; pasted
   text gets the deterministic fallback briefing and a visible "demo mode" note. Ask is
   disabled with an explanation in demo mode.
-- Accessibility: skip link, `header/nav/main/footer` landmarks, one `h1`, labelled
+- Accessibility: skip link, `header/main/footer` landmarks, one `h1`, labelled
   controls, visible focus, `prefers-reduced-motion`, `color-scheme: light dark`, AA
   contrast in both schemes, no information by colour alone, 200 % zoom safe.
 - Styling: single `app.css` with CSS custom properties; no UI library; system font stack.

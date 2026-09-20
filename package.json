@@ -5,7 +5,7 @@
   "description": "Understand a legal notice you received: what it is, what it asks, deadlines, options, and how to prepare for a professional. Information, not legal advice.",
   "license": "MIT",
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "workspaces": [
     "packages/core",

@@ -111,8 +111,12 @@ async function tryModel<T>(
 /**
  * Builds a client over any generateContent-shaped function. Rationale: the model chain, retry
  * and timeout logic is fully testable with a fake, and the real SDK is wired in one line.
+ * `onModelFailure` is called each time a model is abandoned so failover is visible in logs.
  */
-export function createGeminiClientFrom(generate: GenerateContentFn): GeminiClient {
+export function createGeminiClientFrom(
+  generate: GenerateContentFn,
+  onModelFailure: (model: string, message: string) => void = () => undefined,
+): GeminiClient {
   return {
     async generateJson(schema, systemPrompt, userPrompt, parse) {
       const request = { schema, systemPrompt, userPrompt, parse };
@@ -124,6 +128,7 @@ export function createGeminiClientFrom(generate: GenerateContentFn): GeminiClien
           return { value: outcome.value, model };
         }
         lastError = outcome.error;
+        onModelFailure(model, errorMessage(outcome.error));
       }
       throw new Error(`All Gemini models failed: ${errorMessage(lastError)}`);
     },
@@ -131,7 +136,10 @@ export function createGeminiClientFrom(generate: GenerateContentFn): GeminiClien
 }
 
 /** Production client: structured JSON output from Gemini via the official SDK. */
-export function createGeminiClient(apiKey: string): GeminiClient {
+export function createGeminiClient(
+  apiKey: string,
+  onModelFailure?: (model: string, message: string) => void,
+): GeminiClient {
   const ai = new GoogleGenAI({ apiKey });
-  return createGeminiClientFrom((params) => ai.models.generateContent(params));
+  return createGeminiClientFrom((params) => ai.models.generateContent(params), onModelFailure);
 }
