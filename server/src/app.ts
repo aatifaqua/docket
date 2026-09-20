@@ -47,6 +47,7 @@ export function createApp(deps: AppDeps): Hono {
       briefingService: deps.briefingService,
       store: deps.store,
       cache,
+      cacheFallbackBriefings: deps.config.aiMode === 'mock',
       maxUploadBytes: config.maxUploadBytes,
     }),
   );

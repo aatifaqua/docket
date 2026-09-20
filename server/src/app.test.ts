@@ -121,6 +121,17 @@ describe('POST /api/analyze', () => {
     expect(generate).toHaveBeenCalledTimes(1);
   });
 
+  it('does not cache a fallback briefing in live mode so the model is retried', async () => {
+    const mock = createMockBriefingService();
+    const generate = vi.fn<BriefingService['generate']>((core, text) => mock.generate(core, text));
+    const service: BriefingService = { ...mock, generate };
+    const { app } = build({ aiMode: 'live', apiKey: 'test-key' }, { briefingService: service });
+    const first = await analyzeSample(app);
+    const second = await analyzeSample(app);
+    expect(second.id).not.toBe(first.id);
+    expect(generate).toHaveBeenCalledTimes(2);
+  });
+
   it('re-analyses when the cached entry has expired from the store', async () => {
     let clock = 0;
     const { app } = build({}, { now: () => clock });

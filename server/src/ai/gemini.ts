@@ -4,7 +4,7 @@ export const MODEL_CHAIN = ['gemini-3.8-flash', 'gemini-3.6-flash', 'gemini-3.5-
 
 const MAX_ATTEMPTS_PER_MODEL = 2;
 const BASE_BACKOFF_MS = 800;
-const REQUEST_TIMEOUT_MS = 20_000;
+const REQUEST_TIMEOUT_MS = 30_000;
 const MAX_OUTPUT_TOKENS = 4096;
 const TEMPERATURE = 0.2;
 /** Transient capacity errors worth one retry; anything else moves straight down the chain. */

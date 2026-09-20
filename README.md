@@ -213,8 +213,8 @@ See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerab
 ## Efficiency
 
 - The deterministic core produces every fact, so no model call is spent on extraction.
-- Exactly one schema-bound Gemini call per analysis, at `temperature 0.2` with a 20-second timeout.
-- SHA-256 content cache: re-analysing the same text and date returns the stored result without a model call. [cache.ts](server/src/cache.ts)
+- Exactly one schema-bound Gemini call per analysis, at `temperature 0.2` with a 30-second timeout.
+- SHA-256 content cache: re-analysing the same text and date returns the stored result without a model call. Results that had to fall back because the model was unavailable are not cached in live mode, so the next identical request tries Gemini again. [cache.ts](server/src/cache.ts)
 - Bounded stores: 200 analyses, 24-hour TTL, oldest evicted first.
 - The Results view is a lazy-loaded chunk, so the intake bundle stays small.
 - `@docket/core` has zero runtime dependencies; the whole tree is Hono, `@google/genai`, zod, a PDF text extractor, Svelte, and Vite.

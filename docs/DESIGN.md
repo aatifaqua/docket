@@ -231,7 +231,7 @@ Every module ships a colocated `*.test.ts`; `packages/core` enforces 100 % cover
 - AI mode: `DOCKET_AI_MODE=live|mock`. `live` requires `GEMINI_API_KEY`. `mock` never
   calls the network and uses `buildFallbackBriefing`. Tests and CI run in `mock`.
 - Gemini: `@google/genai`, `generateContent` with `responseMimeType: application/json`,
-  `responseSchema`, `temperature 0.2`, 20 s abort timeout, model chain
+  `responseSchema`, `temperature 0.2`, 30 s abort timeout, model chain
   `gemini-3.8-flash → gemini-3.6-flash → gemini-3.5-flash`, one retry with backoff on
   429/503 before moving down the chain, zod-parse the JSON and fall back to the
   deterministic briefing (`source: 'fallback'`) on any failure.

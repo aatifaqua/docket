@@ -30,7 +30,7 @@ Short records of the choices that shape Docket. Each one states the context, the
 
 **Context.** The briefing is rendered into typed UI components. A malformed or partial response must never reach them, and single-model availability is not something we control.
 
-**Decision.** Call `generateContent` with `responseMimeType: application/json`, a `responseSchema`, `temperature 0.2`, and a 20-second abort timeout. Parse the result with zod. Try `gemini-3.8-flash`, then `gemini-3.6-flash`, then `gemini-3.5-flash`, with one retry and backoff on 429 or 503 before moving down the chain. Any failure after the chain falls back to the deterministic briefing with `source: 'fallback'`.
+**Decision.** Call `generateContent` with `responseMimeType: application/json`, a `responseSchema`, `temperature 0.2`, and a 30-second abort timeout. Parse the result with zod. Try `gemini-3.8-flash`, then `gemini-3.6-flash`, then `gemini-3.5-flash`, with one retry and backoff on 429 or 503 before moving down the chain. Any failure after the chain falls back to the deterministic briefing with `source: 'fallback'`.
 
 **Consequences.** The UI can trust the shape of every briefing. Responses are honest about their origin, so a user sees when the model was not involved. Latency is bounded even during an outage. After validation, option notes and checklist links that reference ids the model did not receive are dropped, which is a second guard against invented content.
 

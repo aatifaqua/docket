@@ -13,6 +13,12 @@ export interface AnalyzeDeps {
   store: AnalysisStore;
   cache: ContentCache;
   maxUploadBytes: number;
+  /**
+   * Whether analyses whose briefing came from the deterministic fallback may be cached.
+   * In live mode a fallback means the model was unavailable, so the next identical request
+   * should try the model again instead of replaying the degraded result.
+   */
+  cacheFallbackBriefings: boolean;
 }
 
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -102,7 +108,9 @@ export function analyzeRoutes(deps: AnalyzeDeps): Hono {
       disclaimer: DISCLAIMER,
     };
     deps.store.put(analysis, text);
-    deps.cache.set(hash, analysis.id);
+    if (generated.source === 'gemini' || deps.cacheFallbackBriefings) {
+      deps.cache.set(hash, analysis.id);
+    }
     return c.json(analysis, 201);
   });
   return app;
