@@ -14,7 +14,8 @@ const schema = { type: Type.OBJECT, properties: { a: { type: Type.NUMBER } } };
 const parse = (raw: unknown): { a: number } => raw as { a: number };
 const ok = (a: number): Promise<{ text: string }> =>
   Promise.resolve({ text: JSON.stringify({ a }) });
-const fail = (message: string): Promise<never> => Promise.reject(new Error(message));
+const fail = (message: string, status?: number): Promise<never> =>
+  Promise.reject(Object.assign(new Error(message), status === undefined ? {} : { status }));
 
 function modelsCalled(generate: ReturnType<typeof vi.fn<GenerateContentFn>>): string[] {
   return generate.mock.calls.map(([params]) => params.model);
@@ -29,12 +30,13 @@ describe('gemini client', () => {
     vi.useRealTimers();
   });
 
-  it('classifies transient capacity errors as retryable', () => {
-    expect(isRetryable(new Error('429 Too Many Requests'))).toBe(true);
-    expect(isRetryable(new Error('The model is overloaded: UNAVAILABLE'))).toBe(true);
-    expect(isRetryable(new Error('RESOURCE_EXHAUSTED'))).toBe(true);
-    expect(isRetryable('503 high demand')).toBe(true);
-    expect(isRetryable(new Error('400 invalid argument'))).toBe(false);
+  it('classifies transient capacity errors as retryable by HTTP status', () => {
+    expect(isRetryable(Object.assign(new Error('Too Many Requests'), { status: 429 }))).toBe(true);
+    expect(isRetryable(Object.assign(new Error('overloaded'), { status: 503 }))).toBe(true);
+    expect(isRetryable(new Error('{"error":{"code":503,"message":"busy"}}'))).toBe(true);
+    expect(isRetryable(Object.assign(new Error('bad argument'), { status: 400 }))).toBe(false);
+    expect(isRetryable(new Error('This operation was aborted'))).toBe(false);
+    expect(isRetryable('plain string')).toBe(false);
   });
 
   it('sends the structured-output call shape and returns the parsed value with the model', async () => {
@@ -57,16 +59,16 @@ describe('gemini client', () => {
   it('retries a retryable error once with backoff, then moves down the chain', async () => {
     const generate = vi
       .fn<GenerateContentFn>()
-      .mockImplementationOnce(() => fail('429 rate limited'))
-      .mockImplementationOnce(() => fail('503 UNAVAILABLE'))
+      .mockImplementationOnce(() => fail('rate limited', 429))
+      .mockImplementationOnce(() => fail('unavailable', 503))
       .mockImplementationOnce(() => ok(1));
     const client = createGeminiClientFrom(generate);
     const pending = client.generateJson(schema, 's', 'u', parse);
     await vi.advanceTimersByTimeAsync(799);
     expect(generate).toHaveBeenCalledTimes(1);
     await vi.advanceTimersByTimeAsync(1);
-    expect(generate).toHaveBeenCalledTimes(2);
-    await vi.advanceTimersByTimeAsync(1600);
+    // The second attempt is the last one for that model, so the chain moves on without sleeping.
+    expect(generate).toHaveBeenCalledTimes(3);
     const result = await pending;
     expect(result.model).toBe('gemini-3.6-flash');
     expect(modelsCalled(generate)).toEqual([

@@ -1,13 +1,4 @@
-import {
-  analyzeDocument,
-  buildFallbackAnswer,
-  buildFallbackBriefing,
-  CoreError,
-  DISCLAIMER,
-  SAMPLE_NOTICES,
-} from '@docket/core';
-import type { Analysis, Answer, Briefing, BriefingSource, CoreAnalysis } from '@docket/core';
-import demoBriefings from './demo-briefings.json';
+import type { Analysis, Answer, CoreAnalysis } from '@docket/core';
 
 const REQUEST_TIMEOUT_MS = 60_000;
 
@@ -51,8 +42,6 @@ export interface AskInput {
   text: string;
 }
 
-const PREGENERATED: Readonly<Record<string, Briefing | undefined>> = demoBriefings;
-
 function apiBase(): string {
   return import.meta.env.VITE_API_BASE ?? '';
 }
@@ -65,45 +54,28 @@ export function isDemoMode(): boolean {
   return apiBase() === '';
 }
 
-/** Small non-cryptographic hash so demo analyses get a stable id for checklist persistence. */
-function hashText(input: string): string {
-  let hash = 5381;
-  for (let index = 0; index < input.length; index += 1) {
-    hash = (hash * 33) ^ input.charCodeAt(index);
-  }
-  return (hash >>> 0).toString(16);
+type DemoModule = typeof import('./demo.ts');
+let demoModule: Promise<DemoModule> | null = null;
+
+/** Loads the in-browser analysis code once; called early from the intake so the click feels instant. */
+export function loadDemo(): Promise<DemoModule> {
+  demoModule ??= import('./demo.ts');
+  return demoModule;
 }
 
-/** Sample notices ship with a briefing Gemini wrote ahead of time; anything else is explained offline. */
-function demoBriefingFor(
-  text: string,
-  sampleId: string | null | undefined,
-  core: CoreAnalysis,
-): { briefing: Briefing; source: BriefingSource } {
-  const sample = SAMPLE_NOTICES.find((entry) => entry.id === sampleId);
-  const pregenerated = sample?.text === text ? PREGENERATED[sample.id] : null;
-  return pregenerated
-    ? { briefing: pregenerated, source: 'gemini' }
-    : { briefing: buildFallbackBriefing(core), source: 'fallback' };
-}
-
-function analyzeInBrowser({ text, referenceDate, sampleId }: AnalyzeInput): Analysis {
-  let core: CoreAnalysis;
+/** Pulls the server's plain-language message out of its error envelope when it sent one. */
+async function serverMessage(response: Response): Promise<string | null> {
   try {
-    core = analyzeDocument(text, referenceDate);
-  } catch (error) {
-    if (error instanceof CoreError) throw new ApiError(error.message);
-    throw error;
+    const body: unknown = await response.json();
+    if (typeof body !== 'object' || body === null || !('error' in body)) return null;
+    const detail = body.error;
+    if (typeof detail !== 'object' || detail === null || !('message' in detail)) return null;
+    return typeof detail.message === 'string' && detail.message.trim() !== ''
+      ? detail.message
+      : null;
+  } catch {
+    return null;
   }
-  const { briefing, source } = demoBriefingFor(text, sampleId, core);
-  return {
-    id: `demo-${hashText(`${text}\n${referenceDate}`)}`,
-    createdAt: new Date().toISOString(),
-    core,
-    briefing,
-    source,
-    disclaimer: DISCLAIMER,
-  };
 }
 
 async function request<T>(path: string, init: RequestInit): Promise<T> {
@@ -118,7 +90,8 @@ async function request<T>(path: string, init: RequestInit): Promise<T> {
     throw new ApiError(timedOut ? TIMEOUT_MESSAGE : GENERIC_MESSAGE);
   }
   if (!response.ok) {
-    throw new ApiError(HTTP_MESSAGES[response.status] ?? GENERIC_MESSAGE, response.status);
+    const message = (await serverMessage(response)) ?? HTTP_MESSAGES[response.status];
+    throw new ApiError(message ?? GENERIC_MESSAGE, response.status);
   }
   return (await response.json()) as T;
 }
@@ -133,7 +106,7 @@ function postJson<T>(path: string, body: unknown): Promise<T> {
 
 /** Analyses pasted text: in the browser in demo mode, otherwise via `POST /api/analyze`. */
 export async function analyze(input: AnalyzeInput): Promise<Analysis> {
-  if (isDemoMode()) return analyzeInBrowser(input);
+  if (isDemoMode()) return (await loadDemo()).analyzeInBrowser(input);
   return await postJson<Analysis>('/api/analyze', {
     text: input.text,
     referenceDate: input.referenceDate,
@@ -150,12 +123,13 @@ export function analyzeFile(file: File, referenceDate: string): Promise<Analysis
 }
 
 /**
- * Asks a follow-up question. Demo mode answers by quoting matching sentences from the text
- * (never inventing facts); server mode uses the grounded `ask` endpoint.
+ * Asks a follow-up question. Demo mode answers offline by quoting matching sentences from the
+ * text; server mode uses the grounded `ask` endpoint.
  */
-export function ask({ analysisId, question, core, text }: AskInput): Promise<Answer> {
-  if (isDemoMode()) return Promise.resolve(buildFallbackAnswer(question, core, text));
-  return postJson<Answer>(`/api/analysis/${encodeURIComponent(analysisId)}/ask`, { question });
+export async function ask(input: AskInput): Promise<Answer> {
+  if (isDemoMode()) return (await loadDemo()).answerInBrowser(input);
+  const path = `/api/analysis/${encodeURIComponent(input.analysisId)}/ask`;
+  return await postJson<Answer>(path, { question: input.question });
 }
 
 /** Reads a plain-text file in the browser so demo mode can accept .txt uploads offline. */

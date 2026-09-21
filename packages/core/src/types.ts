@@ -139,7 +139,7 @@ export interface Answer {
 
 /** Shown on every view, returned in every API response, and embedded in every prompt. */
 export const DISCLAIMER =
-  'Docket provides general information to help you understand a document. It is not legal advice, ' +
-  'does not create an attorney-client relationship, and may miss details that matter. ' +
-  'Confirm deadlines with the issuing body and consult a licensed legal professional or legal-aid ' +
-  'organisation before acting.';
+  'Docket explains documents in plain language so you can decide what to do next. It is general ' +
+  'information only, not legal advice, and it can miss details that matter in your situation. ' +
+  'Check every deadline with the court or sender that issued the document, and talk to a licensed ' +
+  'lawyer or a legal-aid organisation before you act.';

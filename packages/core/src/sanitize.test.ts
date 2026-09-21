@@ -10,6 +10,10 @@ describe('sanitizeText', () => {
     expect(sanitizeText('a\u0000b\u0007c\td\ne\u007Ff\u0085g')).toBe('abc\td\nefg');
   });
 
+  it('removes zero-width and bidirectional format characters', () => {
+    expect(sanitizeText('pay\u200Bwithin \u202E30\u202C days\uFEFF')).toBe('paywithin 30 days');
+  });
+
   it('normalises CRLF and collapses three or more blank lines', () => {
     expect(sanitizeText('one\r\ntwo\rthree\n\n\n\nfour\n \n\t\nfive')).toBe(
       'one\ntwo\nthree\n\nfour\n\nfive',

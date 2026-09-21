@@ -5,10 +5,12 @@ export const MODEL_CHAIN = ['gemini-3.8-flash', 'gemini-3.6-flash', 'gemini-3.5-
 const MAX_ATTEMPTS_PER_MODEL = 2;
 const BASE_BACKOFF_MS = 800;
 const REQUEST_TIMEOUT_MS = 30_000;
+/** Upper bound for the whole chain, so a busy provider cannot hold a request open for minutes. */
+const CHAIN_DEADLINE_MS = 75_000;
 const MAX_OUTPUT_TOKENS = 4096;
 const TEMPERATURE = 0.2;
-/** Transient capacity errors worth one retry; anything else moves straight down the chain. */
-const RETRYABLE_RE = /429|503|UNAVAILABLE|RESOURCE_EXHAUSTED|high demand/i;
+/** HTTP statuses that mean "try again shortly" rather than "this request is wrong". */
+const RETRYABLE_STATUSES = new Set([429, 500, 502, 503, 504]);
 
 /** The single SDK call the client depends on, so tests can inject a fake without the network. */
 export type GenerateContentFn = (
@@ -50,9 +52,24 @@ function errorMessage(err: unknown): string {
   return err instanceof Error ? err.message : String(err);
 }
 
+/** Reads the HTTP status the SDK attaches to API errors, or one embedded in a JSON error body. */
+function statusOf(err: unknown): number | undefined {
+  if (
+    typeof err === 'object' &&
+    err !== null &&
+    'status' in err &&
+    typeof err.status === 'number'
+  ) {
+    return err.status;
+  }
+  const match = /"code"\s*:\s*(\d{3})/.exec(errorMessage(err));
+  return match?.[1] === undefined ? undefined : Number(match[1]);
+}
+
 /** True for rate-limit and capacity errors that usually clear within a second or two. */
 export function isRetryable(err: unknown): boolean {
-  return RETRYABLE_RE.test(errorMessage(err));
+  const status = statusOf(err);
+  return status !== undefined && RETRYABLE_STATUSES.has(status);
 }
 
 function sleep(ms: number): Promise<void> {
@@ -101,7 +118,8 @@ async function tryModel<T>(
       return { ok: true, value: await callModel(generate, model, request) };
     } catch (error) {
       lastError = error;
-      if (!isRetryable(error)) break;
+      const lastAttempt = attempt === MAX_ATTEMPTS_PER_MODEL - 1;
+      if (!isRetryable(error) || lastAttempt) break;
       await sleep(BASE_BACKOFF_MS * 2 ** attempt);
     }
   }
@@ -121,7 +139,9 @@ export function createGeminiClientFrom(
     async generateJson(schema, systemPrompt, userPrompt, parse) {
       const request = { schema, systemPrompt, userPrompt, parse };
       let lastError: unknown = new Error('No models configured');
+      const startedAt = Date.now();
       for (const model of orderedModels()) {
+        if (Date.now() - startedAt > CHAIN_DEADLINE_MS) break;
         const outcome = await tryModel(generate, model, request);
         if (outcome.ok) {
           preferredModel = model;

@@ -11,6 +11,8 @@ export const MIN_INPUT_WORDS = 40;
 const HTML_TAG_RE = /<\/?[a-zA-Z!][^>]*>/g;
 /** Every Unicode control character except tab and newline, which carry layout. */
 const CONTROL_CHAR_RE = /(?![\t\n])\p{Cc}/gu;
+/** Invisible format characters (zero-width joiners, bidi overrides, byte-order marks) that can hide or reorder text. */
+const FORMAT_CHAR_RE = /\p{Cf}/gu;
 const EXTRA_BLANK_LINES_RE = /\n[ \t]*\n(?:[ \t]*\n)+/g;
 
 /** Strips tags and control characters, normalises line endings, and caps the length. */
@@ -19,6 +21,7 @@ export function sanitizeText(raw: string): string {
     .replace(/\r\n?/g, '\n')
     .replace(HTML_TAG_RE, ' ')
     .replace(CONTROL_CHAR_RE, '')
+    .replace(FORMAT_CHAR_RE, '')
     .replace(EXTRA_BLANK_LINES_RE, '\n\n')
     .trim()
     .slice(0, MAX_INPUT_CHARS);

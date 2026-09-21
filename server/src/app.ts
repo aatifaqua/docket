@@ -37,7 +37,7 @@ export function createApp(deps: AppDeps): Hono {
   app.use(corsAllowlist(config.corsOrigins));
   app.use(requestId());
   app.use(requestLogger(logger));
-  app.use(rateLimit({ limit: config.rateLimitPerMinute }));
+  app.use(rateLimit({ limit: config.rateLimitPerMinute, trustProxy: config.trustProxy }));
   app.use(bodyLimit({ maxSize: config.maxUploadBytes }));
 
   app.route('/', healthRoutes(config));

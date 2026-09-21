@@ -11,6 +11,7 @@ describe('loadConfig', () => {
       corsOrigins: ['http://localhost:5173'],
       rateLimitPerMinute: 60,
       maxUploadBytes: 2_000_000,
+      trustProxy: false,
     });
   });
 

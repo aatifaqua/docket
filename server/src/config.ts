@@ -8,6 +8,7 @@ const envSchema = z.object({
   CORS_ORIGINS: z.string().default('http://localhost:5173'),
   RATE_LIMIT_PER_MINUTE: z.coerce.number().int().min(1).default(60),
   MAX_UPLOAD_BYTES: z.coerce.number().int().min(1024).default(2_000_000),
+  TRUST_PROXY: z.enum(['true', 'false']).default('false'),
 });
 
 export type AiMode = 'live' | 'mock';
@@ -20,6 +21,8 @@ export interface Config {
   corsOrigins: string[];
   rateLimitPerMinute: number;
   maxUploadBytes: number;
+  /** Only true behind a reverse proxy that overwrites X-Forwarded-For; otherwise the socket address is used. */
+  trustProxy: boolean;
 }
 
 function firstIssue(error: z.ZodError): string {
@@ -53,5 +56,6 @@ export function loadConfig(env: Record<string, string | undefined> = process.env
       .filter((origin) => origin.length > 0),
     rateLimitPerMinute: values.RATE_LIMIT_PER_MINUTE,
     maxUploadBytes: values.MAX_UPLOAD_BYTES,
+    trustProxy: values.TRUST_PROXY === 'true',
   };
 }

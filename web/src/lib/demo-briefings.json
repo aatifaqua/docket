@@ -1,125 +1,116 @@
 {
   "sample-eviction": {
-    "whatThisIs": "Notice to Pay Rent or Quit from your landlord demanding overdue rent and fees or asking you to move out.",
-    "plainSummary": "This is a formal notice from Maple Court Holdings LLC stating that you owe $1,925.00 ($1,850.00 for September 2026 rent plus a $75.00 late fee) for the apartment at 482 Fictional Lane, Apartment 3B. The notice demands that you pay the full amount or move out. If payment is not made or the property is not vacated, the landlord states they will file an unlawful detainer eviction lawsuit after October 6, 2026. Payment must be made by money order or cashier's check.",
+    "whatThisIs": "Notice to Pay Rent or Quit",
+    "plainSummary": "Docket explains documents in plain language so you can decide what to do next. It is general information only, not legal advice, and it can miss details that matter in your situation. Check every deadline with the court or sender that issued the document, and talk to a licensed lawyer or a legal-aid organisation before you act. This is a Notice to Pay Rent or Quit from Northgate Residential LP for 1170 Cedar Row Court, Unit 12. It claims you owe $1,925.00 ($1,850.00 rent plus a $75.00 late fee) for September 2026. You are asked to pay or move out within five days.",
     "keyPoints": [
-      "You are being asked to pay $1,925.00 in total, which covers September 2026 rent and a late fee.",
-      "Payments must be made in full using a cashier's check or money order; partial payments are not accepted unless agreed in writing.",
-      "If the amount is not paid or the home is not vacated by October 6, 2026, the landlord plans to file an eviction case in court.",
-      "You should consult a licensed legal professional or local legal-aid organisation to confirm your deadlines and legal rights before making a decision."
+      "You are asked to pay $1,925.00 ($1,850.00 rent for September 2026 plus a $75.00 late fee) or move out of the premises.",
+      "Payment must be made by money order or cashier's check to Northgate Residential LP at 400 Quarry Street, Floor 3, Millbrook.",
+      "Partial payments will not be accepted unless the landlord agrees in writing.",
+      "If you fail to pay or vacate on or before October 6, 2026, the landlord plans to file an unlawful detainer court case against you.",
+      "You can contact the Millbrook Tenant Help Line to ask about potential rental assistance."
     ],
     "optionNotes": [
       {
         "optionId": "eviction_notice-pay-or-cure-and-stay",
-        "whatItMeansForYou": "You can pay the full $1,925.00 by cashier's check or money order to Maple Court Holdings LLC to resolve the demand and remain in your home. Be sure to keep a copy of your receipt."
+        "whatItMeansForYou": "Paying the full amount of $1,925.00 by cashier's check or money order before the deadline stops the landlord from taking you to court for this notice. Confirm your decision with a legal professional before acting."
       },
       {
         "optionId": "eviction_notice-negotiate-move-out",
-        "whatItMeansForYou": "You can try to reach an agreement with your landlord on a move-out date to avoid an eviction lawsuit being filed on your record. Any agreement should be confirmed in writing."
+        "whatItMeansForYou": "You can ask the landlord for a written agreement regarding a move-out plan, but you should confirm any deal with a licensed attorney or legal-aid organization first."
       },
       {
         "optionId": "eviction_notice-contest-in-court",
-        "whatItMeansForYou": "If you believe the notice is incorrect or you have legal defenses, you can respond in court if the landlord files an unlawful detainer action after October 6, 2026."
+        "whatItMeansForYou": "If you dispute the debt or have legal defenses, you can respond in court if an unlawful detainer case is filed. Consult a legal professional to help you prepare."
       },
       {
         "optionId": "eviction_notice-seek-legal-aid",
-        "whatItMeansForYou": "You can reach out to a legal-aid group or call the Springfield Tenant Resource Line mentioned in the notice to ask about rental assistance and get legal guidance."
+        "whatItMeansForYou": "You can reach out to local legal assistance or the Millbrook Tenant Help Line to get advice on your rights and options."
       }
     ],
     "checklist": [
       {
         "id": "ck-1",
-        "text": "Review the total amount demanded ($1,925.00) against your own bank and rent payment records.",
+        "text": "If paying, prepare a money order or cashier's check for the full $1,925.00 payable to Northgate Residential LP.",
         "relatedDeadlineId": "dl-1"
       },
       {
         "id": "ck-2",
-        "text": "Decide whether to pay the full balance via money order or cashier's check by the initial five-day deadline.",
-        "relatedDeadlineId": "dl-1"
+        "text": "Keep a copy of any payment receipt or written agreement for your records.",
+        "relatedDeadlineId": null
       },
       {
         "id": "ck-3",
-        "text": "Contact the Springfield Tenant Resource Line or a legal-aid organisation to ask about emergency rental assistance.",
+        "text": "Call the Millbrook Tenant Help Line to inquire about available rental assistance programs.",
         "relatedDeadlineId": null
       },
       {
         "id": "ck-4",
-        "text": "Obtain and safely store a written receipt or proof of payment if you deliver funds.",
+        "text": "Consult with a licensed legal professional or legal-aid organization to decide on your next steps before October 6, 2026.",
         "relatedDeadlineId": "dl-3"
-      },
-      {
-        "id": "ck-5",
-        "text": "Confirm any court filing dates with a legal professional before the October 6, 2026 deadline.",
-        "relatedDeadlineId": "dl-2"
       }
     ],
     "prepSheet": {
       "questionsForProfessional": [
-        "Does this notice meet the legal requirements for service and notice periods in Springfield?",
-        "Can the landlord legally reject a partial payment if I cannot pay the full $1,925.00 at once?",
-        "What steps must I take if the landlord files an unlawful detainer lawsuit after October 6, 2026?",
-        "Am I eligible for any local tenant emergency assistance programs to cover the rent owed?"
+        "What are my options if I cannot pay the full $1,925.00 before October 6, 2026?",
+        "How long does an unlawful detainer court process usually take in Millbrook?",
+        "Can the landlord refuse my payment if I offer it before court filing?"
       ],
       "documentsToGather": [
-        "A copy of the Notice to Pay Rent or Quit dated September 28, 2026",
-        "Your signed lease agreement for 482 Fictional Lane, Apartment 3B",
-        "Bank statements, receipts, or canceled checks showing past rent payments",
-        "Any written messages or emails between you and Maple Court Holdings LLC"
+        "A copy of this Notice to Pay Rent or Quit.",
+        "Your current residential lease agreement.",
+        "Bank records or receipts showing prior rent payments."
       ],
       "factsToWriteDown": [
-        "The date and method by which this notice was delivered to you",
-        "The exact date and amount of your last rent payment",
-        "Any communications you have had with Maple Court Holdings LLC regarding September rent"
+        "The exact date and method by which you received this notice.",
+        "Any recent communication between you and Northgate Residential LP regarding rent payments.",
+        "Details about any repair issues or other disputes involving the rental unit."
       ]
     },
     "termsExplained": [
       {
-        "term": "Pay Rent or Quit",
-        "meaning": "A formal notice instructing a tenant to pay past-due rent within a set time or move out of the rental unit."
+        "term": "Notice to Pay Rent or Quit",
+        "meaning": "A formal written notice demanding that a tenant either pay overdue rent or move out within a specified number of days."
       },
       {
         "term": "Unlawful Detainer",
-        "meaning": "A court lawsuit brought by a landlord to legally evict a tenant and regain control of the rental property."
-      },
-      {
-        "term": "Vacate",
-        "meaning": "To completely move yourself and your belongings out of the rental home and surrender it to the landlord."
-      },
-      {
-        "term": "Premises",
-        "meaning": "The specific rental property described in the notice, such as your apartment unit."
+        "meaning": "A legal court process a landlord uses to evict a tenant and regain control of a rental unit."
       },
       {
         "term": "Service",
-        "meaning": "The formal delivery of a legal notice or court document to a person in accordance with legal rules."
+        "meaning": "The official legal delivery of a notice or court document to a party."
+      },
+      {
+        "term": "Possession",
+        "meaning": "The legal right to occupy and use a physical property."
       }
     ]
   },
   "sample-summons": {
-    "whatThisIs": "A court summons in a civil lawsuit.",
-    "plainSummary": "Northbridge Auto Finance Inc. is suing you in District Court for $4,850.00 in unpaid loan instalments, plus $312.40 in interest and court costs. You must respond in writing within 30 days of receiving this notice and attend a court hearing on November 12, 2026. If you do not answer in time, the court may enter an automatic judgment against you, which could lead to wage garnishment or property liens. You should consult a licensed legal professional or legal-aid organisation to decide what to do.",
+    "whatThisIs": "This document is an official court summons in a civil debt lawsuit filed in the District Court of Alder County.",
+    "plainSummary": "Docket explains documents in plain language so you can decide what to do next. It is general information only, not legal advice, and it can miss details that matter in your situation. Check every deadline with the court or sender that issued the document, and talk to a licensed lawyer or a legal-aid organisation before you act. Northbridge Auto Finance Inc. is suing Tomas Reyes-Whitfield for $4,850.00 in unpaid loan instalments plus $312.40 in interest and court costs. You must file a written response within 30 days of service and attend a court hearing on November 12, 2026.",
     "keyPoints": [
-      "You are being sued for $4,850.00 plus $312.40 in interest and court costs.",
-      "You must file a written answer with the court clerk and send a copy to the plaintiff's attorney within 30 days.",
-      "A case management hearing is scheduled for November 12, 2026, at 9:00 a.m. in Courtroom 4.",
-      "Failing to respond could result in a default judgment against you, property liens, or garnished wages."
+      "Northbridge Auto Finance Inc. has filed a lawsuit against Tomas Reyes-Whitfield.",
+      "The lawsuit claims $4,850.00 in unpaid loan balance and $312.40 in interest, plus court costs.",
+      "You must file a written answer with the court within 30 days after service.",
+      "A court hearing is scheduled for November 12, 2026, at 9:00 a.m. in Courtroom 4.",
+      "If you do not respond, the court may enter a default judgment leading to wage garnishment or property liens."
     ],
     "optionNotes": [
       {
         "optionId": "court_summons-file-answer",
-        "whatItMeansForYou": "You write and file an official answer with the court to state your side and prevent the other party from winning automatically. Check with a legal professional or court self-help centre on how to file."
+        "whatItMeansForYou": "Filing a written answer with the court protects your right to explain your side. Confirm your decision with a licensed lawyer or legal-aid organisation."
       },
       {
         "optionId": "court_summons-request-extension",
-        "whatItMeansForYou": "You can ask for extra time to prepare your response before the original deadline passes. Confirm any agreement or request in writing with the court or a lawyer."
+        "whatItMeansForYou": "You can ask for additional time to respond before the deadline passes. Consult a licensed legal professional or legal-aid organisation to help you submit a request."
       },
       {
         "optionId": "court_summons-consult-counsel",
-        "whatItMeansForYou": "You contact a licensed attorney or a legal-aid organisation right away to review your case and identify any legal defences before your deadline runs out."
+        "whatItMeansForYou": "Meeting with an attorney or legal-aid group helps identify defenses and next steps. Speak with a licensed legal professional to discuss your options."
       },
       {
         "optionId": "court_summons-understand-default",
-        "whatItMeansForYou": "Doing nothing means the plaintiff can ask for a default judgment, which may allow them to take money from your wages or place a lien on your property without your input."
+        "whatItMeansForYou": "If you do nothing, the court may grant a default judgment for the full amount requested. Check with a legal professional before choosing not to respond."
       }
     ],
     "checklist": [
@@ -130,147 +121,149 @@
       },
       {
         "id": "ck-2",
-        "text": "Attend the case management hearing in Courtroom 4 in person or through an attorney.",
+        "text": "Attend the case management hearing in Courtroom 4.",
         "relatedDeadlineId": "dl-1"
       },
       {
         "id": "ck-3",
-        "text": "Contact a licensed attorney, legal-aid organisation, or the court self-help centre to discuss your options.",
+        "text": "Gather loan agreements, payment records, and documents related to Case No. 26-CV-04471.",
         "relatedDeadlineId": null
       }
     ],
     "prepSheet": {
       "questionsForProfessional": [
-        "What legal defences can I raise against this debt claim?",
-        "How do I correctly file and serve an answer before the deadline?",
-        "Do I qualify for a fee waiver or free legal aid for this case?",
-        "What will happen at the November 12 case management hearing?"
+        "What legal defenses do I have against this claim?",
+        "How do I correctly file an answer before the deadline?",
+        "Do I qualify for court fee waivers or legal aid?"
       ],
       "documentsToGather": [
-        "The court summons and attached complaint.",
-        "Loan agreements or contracts with Northbridge Auto Finance Inc.",
-        "Payment receipts, bank statements, or records of loan instalments.",
-        "Any letters or emails exchanged with the lender or their attorneys."
+        "The court summons and complaint (Case No. 26-CV-04471)",
+        "Loan contracts and account statements from Northbridge Auto Finance Inc.",
+        "Proof of payment receipts or correspondence regarding the debt"
       ],
       "factsToWriteDown": [
-        "The exact date and method by which you received the summons.",
-        "Any loan payments you made, including dates and amounts.",
-        "Any disputes or communications you had with the lender regarding the balance.",
-        "Your current financial circumstances if applying for a fee waiver."
+        "The date you received the summons (October 2, 2026)",
+        "The claimed amount of $4,850.00 and interest of $312.40",
+        "Any payments you have made or disputes you have raised regarding this loan"
       ]
     },
     "termsExplained": [
       {
         "term": "Summons",
-        "meaning": "An official court notice ordering someone to respond to a lawsuit."
+        "meaning": "An official court document that notifies a person that a lawsuit has been started against them."
       },
       {
-        "term": "Complaint",
-        "meaning": "The written document filed by the plaintiff that explains the claims against you and the money sought."
+        "term": "Plaintiff",
+        "meaning": "The party or business that starts a court case."
       },
       {
-        "term": "Answer",
-        "meaning": "A formal written response filed with the court to address each claim made in the complaint."
+        "term": "Defendant",
+        "meaning": "The person or party being sued in court."
       },
       {
-        "term": "Default judgment",
-        "meaning": "A court ruling made against you automatically because you did not file a response or appear in time."
+        "term": "Default Judgment",
+        "meaning": "A ruling made by a court when one party fails to respond or appear on time."
       },
       {
-        "term": "Garnish wages",
-        "meaning": "A legal process that allows money to be taken directly from your paycheck to pay a debt."
+        "term": "Garnish",
+        "meaning": "A legal process that allows money to be deducted directly from wages or funds to satisfy a debt."
       },
       {
         "term": "Lien",
-        "meaning": "A legal claim placed on your property that prevents you from selling it without paying the debt."
+        "meaning": "A legal hold placed on property until an owed balance is resolved."
       }
     ]
   },
   "sample-debt": {
-    "whatThisIs": "A debt collection validation notice from Harborline Recovery Services claiming you owe money on an account with Riverbank Card Services.",
-    "plainSummary": "Harborline Recovery Services sent you a debt validation notice claiming you owe $2,317.45 for an account ending in 7731 with Riverbank Card Services. This total includes $187.20 in interest and $45.00 in fees. You have 30 days from when you receive the letter to dispute the debt or ask for the original creditor's details in writing. If you dispute it, the collector must pause collection until they mail you verification. If you do not dispute it within 30 days, they will assume the debt is valid. They may also report this account to credit reporting agencies after November 2, 2026.",
+    "whatThisIs": "A debt collection validation notice from Harborline Recovery Services regarding a credit card account balance.",
+    "plainSummary": "Harborline Recovery Services sent this letter stating they are collecting a debt of $2,317.45 originally owed to Riverbank Card Services. The total balance includes $187.20 in interest and $45.00 in fees. The notice explains that you have 30 days from receiving the letter to dispute the debt in writing. If you dispute it, the agency must pause collection efforts and mail you verification of the debt. If you do not dispute the debt within 30 days, they will assume it is valid. Additionally, the collector notes they may report this account to credit reporting agencies after November 2, 2026.",
     "keyPoints": [
-      "The collector claims you owe a total balance of $2,317.45.",
-      "You have 30 days from receiving the letter to dispute the debt in writing.",
-      "If you dispute it on time, collection must pause until they send verification.",
-      "If you do not dispute it within 30 days, the collector will assume the debt is valid.",
-      "The collector notes they may report the account to credit bureaus after November 2, 2026."
+      "Harborline Recovery Services is seeking payment of $2,317.45 for an account ending in 7731.",
+      "The total includes $187.20 in interest and $45.00 in fees.",
+      "You have a 30-day window to dispute the debt or request original creditor details in writing.",
+      "Collection activities pause while the collector obtains and mails you verification if you dispute it in time.",
+      "The agency may report the account to credit bureaus after November 2, 2026."
     ],
     "optionNotes": [
       {
         "optionId": "debt_collection-dispute-in-writing",
-        "whatItMeansForYou": "You can send a letter stating you dispute the debt. Doing this within the 30-day window stops collection activity until the collector sends verification. Confirm your strategy with a legal-aid organization or licensed legal professional."
+        "whatItMeansForYou": "If you believe you do not owe this debt or the amount is incorrect, sending a written dispute within 30 days stops collection until they send verification. Speak with a legal professional or legal-aid organisation to confirm how to draft and send your response."
       },
       {
         "optionId": "debt_collection-request-verification",
-        "whatItMeansForYou": "You can ask in writing for documents proving you owe the money and the name and address of the original creditor. This helps clarify if the amounts and fees are correct."
+        "whatItMeansForYou": "You can ask the collector to prove that you owe the money and provide the original creditor name and address. A legal advisor can help you review any paperwork the collector returns."
       },
       {
         "optionId": "debt_collection-negotiate-payment",
-        "whatItMeansForYou": "You may choose to contact the collector to negotiate a settlement or payment plan, but talk to a legal professional first to avoid restarting legal time limits."
+        "whatItMeansForYou": "You can reach out to discuss settlement terms or a payment arrangement if you owe the balance. Confirm any agreement in writing with an attorney or legal-aid group before sending money."
       },
       {
         "optionId": "debt_collection-check-time-limit",
-        "whatItMeansForYou": "You can review how old the debt is to see if the legal time limit to sue has passed. Consult a licensed legal professional before acknowledging old debts."
+        "whatItMeansForYou": "Debts may have a legal time limit after which you cannot be successfully sued. Consult a licensed lawyer or legal-aid organisation to find out if this debt has passed the statute of limitations before making any payments."
       }
     ],
     "checklist": [
       {
         "id": "ck-1",
-        "text": "Note the exact date you received this letter to calculate your 30-day deadline.",
-        "relatedDeadlineId": "dl-0"
+        "text": "Review your personal records regarding Riverbank Card Services account ending in 7731.",
+        "relatedDeadlineId": null
       },
       {
         "id": "ck-2",
-        "text": "Decide whether to send a written dispute or verification request to PO Box 1000, Springfield, and speak with a legal professional before choosing.",
+        "text": "Send a written dispute or verification request to PO Box 1000, Millbrook within 30 days of receiving the letter.",
         "relatedDeadlineId": "dl-0"
       },
       {
         "id": "ck-3",
-        "text": "Monitor your credit reports and check for updates after the November 2, 2026 reporting date.",
+        "text": "Decide on next steps before the collector begins credit bureau reporting after November 2, 2026.",
         "relatedDeadlineId": "dl-2"
+      },
+      {
+        "id": "ck-4",
+        "text": "Consult a licensed attorney or legal-aid organisation before making payments or signing agreements.",
+        "relatedDeadlineId": null
       }
     ],
     "prepSheet": {
       "questionsForProfessional": [
-        "Does this letter meet all requirements for a debt collection validation notice?",
-        "Has the time limit to file a lawsuit on this Riverbank Card Services account expired?",
-        "What exact wording should I use in my written dispute letter?",
-        "How could making a payment or acknowledging the debt affect my legal rights?"
+        "Does this debt appear to be past the time limit for bringing a lawsuit?",
+        "What specific wording should I include in my written dispute letter?",
+        "Could making a partial payment restart the legal clock on this debt?",
+        "What steps can prevent or address negative marks on my credit report?"
       ],
       "documentsToGather": [
-        "The letter received from Harborline Recovery Services and its mailing envelope.",
-        "Any past statements, payment records, or contracts related to account ending in 7731.",
-        "Any past communications with Riverbank Card Services.",
-        "Recent copies of your credit reports."
+        "The letter received from Harborline Recovery Services dated September 30, 2026",
+        "Past statements or correspondence from Riverbank Card Services for account ending 7731",
+        "Proof of any prior payments made toward this balance",
+        "Certified mail receipts or proof of mailing for any letters you send"
       ],
       "factsToWriteDown": [
-        "The date you received the letter in the mail.",
-        "The date of your last payment or charge on the original Riverbank Card Services account.",
-        "Whether you recognize the account number ending in 7731.",
-        "Whether you have received other calls or letters regarding this specific balance."
+        "The exact date you received this letter in the mail",
+        "The date of your last payment or charge with Riverbank Card Services",
+        "Whether you recognise the account number ending in 7731 or the balance amount",
+        "Any notes from previous conversations or letters regarding this account"
       ]
     },
     "termsExplained": [
       {
         "term": "validation notice",
-        "meaning": "A required letter from a debt collector that states the amount owed, the creditor, and your rights to dispute the debt."
+        "meaning": "A written statement from a debt collector informing you of your right to dispute a debt and ask for proof."
       },
       {
         "term": "debt collector",
-        "meaning": "A company or person that regularly collects debts owed to someone else."
+        "meaning": "A person or company that regularly collects debts owed to others."
+      },
+      {
+        "term": "verification",
+        "meaning": "Written proof or documentation showing that a debt is accurate and actually owed by you."
       },
       {
         "term": "original creditor",
-        "meaning": "The company that originally gave you the credit or loan, such as the bank that issued the credit card."
-      },
-      {
-        "term": "verification of the debt",
-        "meaning": "Proof or documentation provided by a collector showing that you owe the money and that the collector has the right to collect it."
+        "meaning": "The original company or bank that first provided the credit or loan."
       },
       {
         "term": "credit reporting agencies",
-        "meaning": "Companies that track your credit history and provide credit scores and reports to lenders and businesses."
+        "meaning": "Companies that track your credit history and calculate credit scores based on how you pay debts."
       }
     ]
   }

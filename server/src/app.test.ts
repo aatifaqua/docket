@@ -26,6 +26,7 @@ function build(
     corsOrigins: ['http://localhost:5173'],
     rateLimitPerMinute: 1000,
     maxUploadBytes: 2_000_000,
+    trustProxy: false,
     ...overrides,
   };
   const store = new AnalysisStore(deps.now === undefined ? {} : { now: deps.now });
@@ -313,9 +314,9 @@ describe('rate limiting', () => {
     expect(blocked.status).toBe(429);
     expect(blocked.headers.get('Retry-After')).toMatch(/^\d+$/);
     expect(blocked.headers.get('RateLimit-Limit')).toBe('3');
-    const other = await app.request('/api/health', {
+    const forged = await app.request('/api/health', {
       headers: { 'x-forwarded-for': '198.51.100.7' },
     });
-    expect(other.status).toBe(200);
+    expect(forged.status).toBe(429);
   });
 });

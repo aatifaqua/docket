@@ -46,8 +46,16 @@ async function readJson(c: Context): Promise<unknown> {
   }
 }
 
+async function parseMultipart(c: Context): Promise<Record<string, unknown>> {
+  try {
+    return await c.req.parseBody();
+  } catch {
+    throw badRequest('The upload could not be read. Send a multipart form with a "file" field.');
+  }
+}
+
 async function readMultipart(c: Context, maxUploadBytes: number): Promise<unknown> {
-  const body = await c.req.parseBody();
+  const body = await parseMultipart(c);
   const file = body.file;
   if (!(file instanceof File)) throw badRequest('Attach a .txt or .pdf file in the "file" field.');
   const text = await extractUploadText(new Uint8Array(await file.arrayBuffer()), maxUploadBytes);

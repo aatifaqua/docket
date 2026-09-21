@@ -11,9 +11,9 @@ describe('clientKey', () => {
 });
 
 describe('rateLimit', () => {
-  function build(now: () => number): Hono {
+  function build(now: () => number, trustProxy = false): Hono {
     const app = new Hono();
-    app.use(rateLimit({ limit: 2, windowMs: 1000, now }));
+    app.use(rateLimit({ limit: 2, windowMs: 1000, now, trustProxy }));
     app.get('/', (c) => c.text('ok'));
     return app;
   }
@@ -32,11 +32,20 @@ describe('rateLimit', () => {
     expect(blocked.headers.get('RateLimit-Remaining')).toBe('0');
     await expect(blocked.json()).resolves.toMatchObject({ error: { code: 'TOO_MANY_REQUESTS' } });
 
-    const other = await app.request('/', { headers: { 'x-forwarded-for': '203.0.113.9' } });
-    expect(other.status).toBe(200);
+    const forged = await app.request('/', { headers: { 'x-forwarded-for': '203.0.113.9' } });
+    expect(forged.status).toBe(429);
 
     clock = 1000;
     const afterReset = await app.request('/');
     expect(afterReset.status).toBe(200);
+  });
+
+  it('keys on X-Forwarded-For only when a trusted proxy is declared', async () => {
+    const app = build(() => 0, true);
+    await app.request('/');
+    await app.request('/');
+    expect((await app.request('/')).status).toBe(429);
+    const other = await app.request('/', { headers: { 'x-forwarded-for': '203.0.113.9' } });
+    expect(other.status).toBe(200);
   });
 });

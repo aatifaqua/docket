@@ -41,7 +41,7 @@ describe('demo mode', () => {
   });
 
   it('analyses pasted text in the browser with the fallback briefing and a stable demo id', async () => {
-    const text = sampleNotice(0).text.replace('Jordan Example', 'Sam Nobody');
+    const text = sampleNotice(0).text.replace('Priya Halvorsen', 'Sam Nobody');
     const first = await analyze({ text, referenceDate: REFERENCE_DATE });
     const second = await analyze({ text, referenceDate: REFERENCE_DATE });
     expect(first.id).toMatch(/^demo-[0-9a-f]+$/);
@@ -140,6 +140,30 @@ describe('server mode', () => {
     fetchMock.mockResolvedValueOnce(jsonResponse({}, 418));
     await expect(analyze({ text: 'x', referenceDate: REFERENCE_DATE })).rejects.toThrow(
       /could not reach/,
+    );
+  });
+
+  it('shows the message from the server error envelope when it carries one', async () => {
+    const fetchMock = useServerMode();
+    const envelope = { error: { code: 'TOO_SHORT', message: 'Paste at least 40 words.' } };
+    fetchMock.mockResolvedValueOnce(jsonResponse(envelope, 400));
+    await expect(analyze({ text: 'x', referenceDate: REFERENCE_DATE })).rejects.toThrow(
+      'Paste at least 40 words.',
+    );
+
+    fetchMock.mockResolvedValueOnce(jsonResponse({ error: { code: 'X', message: '  ' } }, 400));
+    await expect(analyze({ text: 'x', referenceDate: REFERENCE_DATE })).rejects.toThrow(
+      /could not read that request/,
+    );
+
+    fetchMock.mockResolvedValueOnce(jsonResponse({ error: 'plain string' }, 400));
+    await expect(analyze({ text: 'x', referenceDate: REFERENCE_DATE })).rejects.toThrow(
+      /could not read that request/,
+    );
+
+    fetchMock.mockResolvedValueOnce(new Response('<html>oops</html>', { status: 500 }));
+    await expect(analyze({ text: 'x', referenceDate: REFERENCE_DATE })).rejects.toThrow(
+      /went wrong on our side/,
     );
   });
 
