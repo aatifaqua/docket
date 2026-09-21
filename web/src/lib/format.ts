@@ -53,6 +53,11 @@ export function describeConfidence(confidence: number): string {
 }
 
 /** Counts whitespace-separated words; mirrors the core's minimum-length check. */
+/** US-dollar formatting for extracted amounts. */
+export function formatMoney(amount: number): string {
+  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+}
+
 export function countWords(text: string): number {
   const trimmed = text.trim();
   return trimmed === '' ? 0 : trimmed.split(/\s+/).length;

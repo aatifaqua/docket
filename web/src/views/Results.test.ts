@@ -23,6 +23,9 @@ describe('Results', () => {
       'Your briefing',
       'What this is',
       'Key points',
+      'What it asks of you',
+      'Obligations',
+      'Amounts mentioned',
       'Timeline',
       'Your options',
       ...analysis.core.options.map((option) => option.title),
@@ -67,5 +70,33 @@ describe('Results', () => {
       props: { analysis: fixtureAnalysis(2), sourceText: '', onrestart: vi.fn() },
     });
     expect(screen.getByText(/generated offline/)).toBeVisible();
+  });
+
+  it('lists obligations and amounts, and hides the section when there are none', () => {
+    const analysis = fixtureAnalysis(0);
+    const first = render(Results, {
+      props: { analysis, sourceText: sampleNotice(0).text, onrestart: vi.fn() },
+    });
+    expect(screen.getByRole('heading', { name: 'What it asks of you' })).toBeVisible();
+    expect(screen.getByText('$1,925.00')).toBeVisible();
+    first.unmount();
+
+    const amountsOnly = {
+      ...analysis,
+      core: { ...analysis.core, obligations: [] },
+    };
+    const second = render(Results, {
+      props: { analysis: amountsOnly, sourceText: '', onrestart: vi.fn() },
+    });
+    expect(screen.queryByRole('heading', { name: 'Obligations' })).toBeNull();
+    expect(screen.getByRole('heading', { name: 'Amounts mentioned' })).toBeVisible();
+    second.unmount();
+
+    const bare = {
+      ...analysis,
+      core: { ...analysis.core, obligations: [], amounts: [] },
+    };
+    render(Results, { props: { analysis: bare, sourceText: '', onrestart: vi.fn() } });
+    expect(screen.queryByRole('heading', { name: 'What it asks of you' })).toBeNull();
   });
 });

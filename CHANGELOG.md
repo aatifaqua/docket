@@ -18,5 +18,7 @@ All notable changes to this project are documented here. The format follows [Kee
 - Web: demo mode that runs the core in the browser for GitHub Pages; light and dark themes; print stylesheet; reduced-motion support.
 - Repository: CI workflow (format, lint, typecheck, test, build, audit), GitHub Pages workflow, Dependabot, design document, ADRs, security policy.
 
+<!-- Replace OWNER with your GitHub user or organisation. -->
+
 [Unreleased]: https://github.com/OWNER/docket/compare/v0.1.0...HEAD
 [0.1.0]: https://github.com/OWNER/docket/releases/tag/v0.1.0

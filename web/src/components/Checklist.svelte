@@ -3,14 +3,22 @@
   does not lose progress; storage access is wrapped because private windows can throw.
 -->
 <script lang="ts">
-  import type { ChecklistItem } from '@docket/core';
+  import type { ChecklistItem, Deadline } from '@docket/core';
+  import { formatLongDate } from '../lib/format.ts';
 
   interface Props {
     items: ChecklistItem[];
     analysisId: string;
+    deadlines?: Deadline[];
   }
 
-  let { items, analysisId }: Props = $props();
+  let { items, analysisId, deadlines = [] }: Props = $props();
+
+  /** Short "by <date>" note when the item is tied to a dated deadline. */
+  function dueNote(item: ChecklistItem): string {
+    const deadline = deadlines.find((entry) => entry.id === item.relatedDeadlineId);
+    return deadline?.date ? `By ${formatLongDate(deadline.date)}.` : '';
+  }
   const storageKey = $derived(`docket:checklist:${analysisId}`);
   let checked = $derived(load(storageKey));
 
@@ -42,7 +50,9 @@
 
 <section class="card" aria-labelledby="checklist-heading">
   <h3 id="checklist-heading">Checklist</h3>
-  <p class="hint" aria-live="polite">{done} of {items.length} done. Saved on this device.</p>
+  <p class="hint">
+    <span aria-live="polite">{done} of {items.length} done.</span> Saved on this device.
+  </p>
   <ul class="checklist">
     {#each items as item (item.id)}
       <li>
@@ -54,7 +64,10 @@
             toggle(item.id);
           }}
         />
-        <label for="check-{item.id}">{item.text}</label>
+        <label for="check-{item.id}">
+          {item.text}
+          {#if dueNote(item) !== ''}<span class="muted"> {dueNote(item)}</span>{/if}
+        </label>
       </li>
     {/each}
   </ul>

@@ -12,7 +12,7 @@
   import Terms from '../components/Terms.svelte';
   import AskPanel from '../components/AskPanel.svelte';
   import { isDemoMode } from '../lib/api.ts';
-  import { describeConfidence, KIND_LABELS } from '../lib/format.ts';
+  import { describeConfidence, formatMoney, KIND_LABELS } from '../lib/format.ts';
 
   interface Props {
     analysis: Analysis;
@@ -32,6 +32,11 @@
         ? 'Demo mode: analysed in your browser without the AI language layer.'
         : 'Explanation generated offline from the facts found in your document.',
   );
+
+  const yourObligations = $derived(
+    analysis.core.obligations.filter((obligation) => obligation.party === 'you'),
+  );
+  const hasDemands = $derived(yourObligations.length > 0 || analysis.core.amounts.length > 0);
 
   $effect(() => {
     heading?.focus();
@@ -66,9 +71,45 @@
     </ul>
   </section>
 
+  {#if hasDemands}
+    <section class="card" aria-labelledby="demands-heading">
+      <h3 id="demands-heading">What it asks of you</h3>
+      <p class="hint">Taken word for word from the document, then restated plainly.</p>
+      <div class="two-col">
+        {#if yourObligations.length > 0}
+          <div>
+            <h4 id="obligations-heading">Obligations</h4>
+            <ul aria-labelledby="obligations-heading">
+              {#each yourObligations as obligation (obligation.id)}
+                <li>{obligation.text}</li>
+              {/each}
+            </ul>
+          </div>
+        {/if}
+        {#if analysis.core.amounts.length > 0}
+          <div>
+            <h4 id="amounts-heading">Amounts mentioned</h4>
+            <ul aria-labelledby="amounts-heading">
+              {#each analysis.core.amounts as amount (amount.id)}
+                <li>
+                  <strong>{formatMoney(amount.amount)}</strong>
+                  <span class="muted">{amount.context}</span>
+                </li>
+              {/each}
+            </ul>
+          </div>
+        {/if}
+      </div>
+    </section>
+  {/if}
+
   <Timeline deadlines={analysis.core.deadlines} referenceDate={analysis.core.referenceDate} />
   <Options options={analysis.core.options} notes={analysis.briefing.optionNotes} />
-  <Checklist items={analysis.briefing.checklist} analysisId={analysis.id} />
+  <Checklist
+    items={analysis.briefing.checklist}
+    deadlines={analysis.core.deadlines}
+    analysisId={analysis.id}
+  />
   <PrepSheet prepSheet={analysis.briefing.prepSheet} />
   <Terms terms={analysis.briefing.termsExplained} />
   <AskPanel {analysis} {sourceText} />

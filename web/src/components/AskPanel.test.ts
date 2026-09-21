@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/svelte';
+import { fireEvent, render, screen, waitFor } from '@testing-library/svelte';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { Answer } from '@docket/core';
 import AskPanel from './AskPanel.svelte';
@@ -14,11 +14,10 @@ afterEach(() => {
 });
 
 describe('AskPanel', () => {
-  it('is disabled with an explanation in demo mode', () => {
+  it('stays usable in demo mode and explains that answers are matched offline', () => {
     render(AskPanel, { props: { analysis: fixtureAnalysis(0), sourceText: sampleNotice(0).text } });
-    expect(screen.getByLabelText('Your question')).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Ask' })).toBeDisabled();
-    expect(screen.getByText(/Questions are turned off in this demo/)).toBeVisible();
+    expect(screen.getByLabelText('Your question')).toBeEnabled();
+    expect(screen.getByText(/matching sentences in your document/)).toBeVisible();
   });
 
   it('shows grounded answers with citations and flags ungrounded ones', async () => {
@@ -78,6 +77,8 @@ describe('AskPanel', () => {
     const input = screen.getByLabelText('Your question');
     await fireEvent.input(input, { target: { value: 'Anything?' } });
     await fireEvent.submit(input.closest('form')!);
-    expect(await screen.findByRole('alert')).toHaveTextContent(/went wrong on our side/);
+    await waitFor(() => {
+      expect(screen.getByRole('alert')).toHaveTextContent(/went wrong on our side/);
+    });
   });
 });

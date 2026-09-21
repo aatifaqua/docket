@@ -3,6 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Model-written text is rendered as text nodes only; the policy blocks inline scripts and third-party origins. -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; connect-src 'self' http://localhost:* ws://localhost:* https:; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; object-src 'none'"
+    />
     <meta
       name="description"
       content="Docket helps you understand a legal notice you received: what it is, what it asks of you, the deadlines it creates, your options, and how to prepare for a legal professional. Information, not legal advice."
@@ -13,6 +18,11 @@
     <title>Docket — understand the legal notice you just received</title>
   </head>
   <body>
+    <noscript>
+      <p style="padding: 1rem; font-family: system-ui, sans-serif">
+        Docket needs JavaScript to read your document in the browser. Please enable it and reload.
+      </p>
+    </noscript>
     <div id="app"></div>
     <script type="module" src="/src/main.ts"></script>
   </body>

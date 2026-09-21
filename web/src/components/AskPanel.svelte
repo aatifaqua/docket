@@ -1,7 +1,7 @@
 <!--
   Grounded follow-up questions. Answers quote the document; when nothing supports an answer
-  the panel says so instead of guessing. Disabled in demo mode because the grounded answer
-  needs the server-side model.
+  the panel says so instead of guessing. In demo mode the answer comes from sentence matching
+  in the browser instead of the model.
 -->
 <script lang="ts">
   import type { Analysis, Answer } from '@docket/core';
@@ -46,13 +46,13 @@
 <section class="card ask-panel" aria-labelledby="ask-heading">
   <h3 id="ask-heading">Ask about this document</h3>
   {#if demo}
-    <p id="ask-disabled-note">
-      Questions are turned off in this demo. Run the Docket server with a Gemini key to ask
-      follow-up questions answered only from your document.
+    <p id="ask-demo-note">
+      In this demo, answers are found by matching sentences in your document, without the AI model.
+      Run the Docket server with a Gemini key for fuller answers.
     </p>
   {/if}
   <form onsubmit={submit} aria-busy={busy}>
-    <fieldset disabled={demo || busy} aria-describedby={demo ? 'ask-disabled-note' : undefined}>
+    <fieldset disabled={busy} aria-describedby={demo ? 'ask-demo-note' : undefined}>
       <div class="field">
         <label for="ask-question">Your question</label>
         <p class="hint">
@@ -69,7 +69,7 @@
     {:else if answer !== null}
       <p>{answer.answer}</p>
       {#if !answer.grounded}
-        <p class="alert" role="status">
+        <p class="alert">
           Not found in your document. A legal professional can help with this question.
         </p>
       {/if}
@@ -82,7 +82,5 @@
       </p>
     {/if}
   </div>
-  {#if error !== ''}
-    <p class="alert" role="alert">{error}</p>
-  {/if}
+  <p class="alert" role="alert">{error}</p>
 </section>

@@ -43,7 +43,7 @@
     <Intake oncomplete={showResults} focusOnMount={returning} />
   {:else}
     {#await resultsModule}
-      <p class="status" aria-live="polite">Loading your results…</p>
+      <p class="status" role="status">Loading your results…</p>
     {:then { default: Results }}
       <Results {analysis} {sourceText} onrestart={startOver} />
     {/await}

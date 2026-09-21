@@ -27,7 +27,7 @@ Docket handles text that people consider private and passes part of it to a lang
 
 **Input limits.** 2 MB body cap; `.txt` and `.pdf` only; PDFs must start with `%PDF-`; text is sanitised (tags and control characters stripped) and capped at 60 000 characters before analysis; questions are capped at 500 characters. Every request and every environment variable is validated with zod.
 
-**Rate limiting and caching.** 60 requests per minute per IP in a fixed window. A SHA-256 cache of text plus reference date means repeated submissions never reach the model.
+**Rate limiting and caching.** 60 requests per minute per client in a fixed window, keyed by the socket address unless `TRUST_PROXY=true` (forged `X-Forwarded-For` headers are ignored by default). A SHA-256 cache of text plus reference date means repeated submissions never reach the model.
 
 **Headers and CORS.** Secure headers on every response, `default-src 'none'` CSP for the API, and a CORS allowlist from `CORS_ORIGINS`.
 

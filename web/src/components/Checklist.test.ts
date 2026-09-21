@@ -20,14 +20,10 @@ describe('Checklist', () => {
     const setItem = vi.spyOn(Storage.prototype, 'setItem');
     const first = render(Checklist, { props: { items, analysisId: 'a1' } });
 
-    expect(
-      screen.getByText(`0 of ${String(items.length)} done. Saved on this device.`),
-    ).toBeVisible();
+    expect(screen.getByText(`0 of ${String(items.length)} done.`)).toBeVisible();
     await fireEvent.click(screen.getByLabelText(items[0]!.text));
     expect(setItem).toHaveBeenCalledWith(KEY, JSON.stringify([items[0]!.id]));
-    expect(
-      screen.getByText(`1 of ${String(items.length)} done. Saved on this device.`),
-    ).toBeVisible();
+    expect(screen.getByText(`1 of ${String(items.length)} done.`)).toBeVisible();
 
     await fireEvent.click(screen.getByLabelText(items[0]!.text));
     expect(JSON.parse(window.localStorage.getItem(KEY)!)).toEqual([]);
@@ -68,5 +64,21 @@ describe('Checklist', () => {
     await fireEvent.click(box);
     expect(box).toBeChecked();
     expect(screen.getByText(/1 of \d+ done/)).toBeVisible();
+  });
+
+  it('shows the deadline date next to items that are tied to a dated deadline', () => {
+    const { core } = fixtureAnalysis(0);
+    const dated = core.deadlines.find((deadline) => deadline.date !== null);
+    if (dated === undefined) throw new Error('fixture has no dated deadline');
+    const items = [
+      { id: 'ck-1', text: 'Pay what is owed', relatedDeadlineId: dated.id },
+      { id: 'ck-2', text: 'Call legal aid', relatedDeadlineId: null },
+      { id: 'ck-3', text: 'Unknown link', relatedDeadlineId: 'dl-999' },
+    ];
+    render(Checklist, { props: { items, analysisId: 'a2', deadlines: core.deadlines } });
+    expect(screen.getByLabelText(/Pay what is owed/)).toBeVisible();
+    expect(screen.getByText(/^By /)).toBeVisible();
+    expect(screen.getByLabelText('Call legal aid')).toBeVisible();
+    expect(screen.getByLabelText('Unknown link')).toBeVisible();
   });
 });

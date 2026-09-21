@@ -9,6 +9,7 @@
     analyzeFile,
     isDemoMode,
     isTextFile,
+    loadDemo,
     messageOf,
     readTextFile,
   } from '../lib/api.ts';
@@ -42,11 +43,18 @@
     if (focusOnMount) textarea?.focus();
   });
 
+  /** Demo mode analyses in the browser; fetching that code early makes the button feel instant. */
+  function warmUp(): void {
+    if (demo) void loadDemo();
+  }
+
   function pickSample(sample: (typeof SAMPLE_NOTICES)[number]): void {
     text = sample.text;
+    referenceDate = sample.receivedOn;
     pendingFile = null;
     error = '';
-    status = `Sample "${sample.title}" loaded into the text box.`;
+    status = `Sample "${sample.title}" loaded, with the reference date set to the day it was received.`;
+    warmUp();
   }
 
   async function handleFile(file: File): Promise<void> {
@@ -91,62 +99,70 @@
   }
 </script>
 
-<form class="stack" onsubmit={submit} aria-busy={busy}>
-  <div>
-    <h2>Paste the notice you received</h2>
-    <p class="muted">
-      Docket reads the document, finds the deadlines and demands in it, and explains your options in
-      plain language. {#if demo}This demo runs entirely in your browser; nothing you paste is sent
-        anywhere.{/if}
-    </p>
-  </div>
+<div class="stack">
+  <form class="stack" onsubmit={submit} aria-busy={busy}>
+    <div>
+      <h2>Paste the notice you received</h2>
+      <p class="muted">
+        Docket reads the document, finds the deadlines and demands in it, and explains your options
+        in plain language. {#if demo}This demo runs entirely in your browser; nothing you paste is
+          sent anywhere.{/if}
+      </p>
+    </div>
 
-  <SampleChips onpick={pickSample} disabled={busy} />
+    <SampleChips onpick={pickSample} disabled={busy} />
 
-  <div class="field">
-    <label for="notice-text">Document text</label>
-    <p class="hint" id="notice-text-hint">
-      Paste the full text, including dates and amounts. At least {MIN_INPUT_WORDS} words.
-    </p>
-    <textarea
-      id="notice-text"
-      bind:this={textarea}
-      bind:value={text}
-      aria-describedby="notice-text-hint notice-text-count"
-      disabled={busy}
-      spellcheck="false"></textarea>
-    <p class="hint" id="notice-text-count">{text.length} characters, {wordCount} words</p>
-  </div>
+    <div class="field">
+      <label for="notice-text">Document text</label>
+      <p class="hint" id="notice-text-hint">
+        Paste the full text, including dates and amounts. At least {MIN_INPUT_WORDS} words.
+      </p>
+      <textarea
+        id="notice-text"
+        bind:this={textarea}
+        bind:value={text}
+        aria-describedby="notice-text-hint notice-text-count"
+        disabled={busy}
+        oninput={warmUp}
+        spellcheck="false"></textarea>
+      <p class="hint" id="notice-text-count">{text.length} characters, {wordCount} words</p>
+    </div>
 
-  <FileDrop onfile={handleFile} disabled={busy} />
-  {#if pendingFile !== null}
-    <p class="hint">Selected file: {pendingFile.name}. The server will read it for you.</p>
-  {/if}
-
-  <div class="field">
-    <label for="reference-date">Reference date</label>
-    <p class="hint" id="reference-date-hint">
-      We count deadlines from this date. Usually the day you received the notice.
-    </p>
-    <input
-      id="reference-date"
-      type="date"
-      bind:value={referenceDate}
-      aria-describedby="reference-date-hint"
-      required
-      disabled={busy}
-    />
-  </div>
-
-  <div class="button-row">
-    <button type="submit" class="button" disabled={!canAnalyze}>
-      {busy ? 'Analysing…' : 'Analyse document'}
-    </button>
-    {#if !busy && wordCount < MIN_INPUT_WORDS && pendingFile === null}
-      <span class="hint">Add {MIN_INPUT_WORDS - wordCount} more words to analyse.</span>
+    <FileDrop onfile={handleFile} disabled={busy} />
+    {#if pendingFile !== null}
+      <p class="hint">Selected file: {pendingFile.name}. The server will read it for you.</p>
     {/if}
-  </div>
 
-  <p class="status" aria-live="polite">{status}</p>
+    <div class="field">
+      <label for="reference-date">Reference date</label>
+      <p class="hint" id="reference-date-hint">
+        We count deadlines from this date. Usually the day you received the notice.
+      </p>
+      <input
+        id="reference-date"
+        type="date"
+        bind:value={referenceDate}
+        aria-describedby="reference-date-hint reference-date-error"
+        aria-invalid={referenceDate === ''}
+        required
+        disabled={busy}
+      />
+      <p class="hint" id="reference-date-error">
+        {referenceDate === '' ? 'Choose a reference date so deadlines can be counted.' : ''}
+      </p>
+    </div>
+
+    <div class="button-row">
+      <button type="submit" class="button" disabled={!canAnalyze}>
+        {busy ? 'Analysing…' : 'Analyse document'}
+      </button>
+      {#if !busy && wordCount < MIN_INPUT_WORDS && pendingFile === null}
+        <span class="hint">Add {MIN_INPUT_WORDS - wordCount} more words to analyse.</span>
+      {/if}
+    </div>
+  </form>
+
+  <!-- Live regions sit outside the busy form so screen readers still announce progress. -->
+  <p class="status" role="status">{status}</p>
   <div role="alert" class="alert">{error}</div>
-</form>
+</div>

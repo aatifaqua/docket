@@ -3,7 +3,7 @@
 Understand a legal notice you just received: what it is, what it asks of you, when the deadlines fall, what your realistic options are, and how to prepare for a conversation with a lawyer or legal-aid clinic.
 
 > [!IMPORTANT]
-> **Information, not legal advice.** Docket provides general information to help you understand a document. It is not legal advice, does not create an attorney-client relationship, and may miss details that matter. Confirm deadlines with the issuing body and consult a licensed legal professional or legal-aid organisation before acting.
+> **Information, not legal advice.** Docket explains documents in plain language so you can decide what to do next. It is general information only, not legal advice, and it can miss details that matter in your situation. Check every deadline with the court or sender that issued the document, and talk to a licensed lawyer or a legal-aid organisation before you act.
 
 <!-- Replace OWNER with your GitHub user or organisation in the badge and demo URLs below. -->
 
@@ -21,16 +21,16 @@ The brief asks for an AI-powered solution that helps people navigate legal docum
 
 Docket takes the **"understand your options and next steps"** and **"prepare for a legal professional"** vertical, applied to documents a person _receives_ (eviction notices, demand letters, court summonses, debt-collection letters, employment notices, insurance denials) rather than contracts they negotiate. The persona is a tenant, employee, consumer, or small-business owner with no legal training and a deadline approaching.
 
-| Brief use case                                                    | What Docket does                                                                                                                                                                                                                                           | Where in the code                                                                                                                                |
-| ----------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Simplifying complex legal documents                               | Classifies the document, then produces a plain-language "what this is", a summary under 120 words, key points, and a glossary of the legal terms used.                                                                                                     | [classify.ts](packages/core/src/classify.ts), [briefing.ts](server/src/ai/briefing.ts), [Terms.svelte](web/src/components/Terms.svelte)          |
-| Comparing contracts, agreements, or policies                      | Honest scope note: Docket does not diff two documents. It compares the notice's extracted deadlines and obligations against a catalogue of typical options for that document kind, and shows the trade-offs of each path side by side.                     | [options.ts](packages/core/src/options.ts), [Options.svelte](web/src/components/Options.svelte)                                                  |
-| Highlighting important clauses, obligations, risks                | Extracts every deadline, "you must" obligation, and dollar amount with its source sentence; assigns severity by proximity and kind; shows a dated timeline with non-colour severity badges.                                                                | [deadlines.ts](packages/core/src/deadlines.ts), [obligations.ts](packages/core/src/obligations.ts), [timeline.ts](packages/core/src/timeline.ts) |
-| Answering questions based on provided documents                   | The Ask panel answers only from the document and the structured analysis, returns supporting quotes, and marks an answer `grounded: false` with a referral when the document does not contain the answer. Citations are checked against the document text. | [analysis.ts](server/src/routes/analysis.ts), [AskPanel.svelte](web/src/components/AskPanel.svelte)                                              |
-| Helping users understand options and next steps                   | Three or four options per document kind, each with pros, cons, urgency, and a typical next step, plus a model-written note on what each option means for this specific notice.                                                                             | [options.ts](packages/core/src/options.ts), [prompts.ts](server/src/ai/prompts.ts)                                                               |
-| Generating summaries, checklists, actionable outputs              | A checklist whose items link back to specific deadlines, persisted per analysis in the browser; a printable prep sheet.                                                                                                                                    | [Checklist.svelte](web/src/components/Checklist.svelte), [fallback.ts](packages/core/src/fallback.ts)                                            |
-| Helping users prepare information or questions for a professional | The prep sheet lists questions to ask, documents to gather, and facts to write down before the meeting, with a print layout.                                                                                                                               | [PrepSheet.svelte](web/src/components/PrepSheet.svelte), [app.css](web/src/app.css)                                                              |
-| Providing assistance rather than replacing professional advice    | One disclaimer constant appears on four surfaces: every UI view, every API response, every model prompt, and every fallback path. Every option points to a professional as the decision-maker.                                                             | [types.ts](packages/core/src/types.ts) (`DISCLAIMER`), [Disclaimer.svelte](web/src/components/Disclaimer.svelte)                                 |
+| Brief use case                                                    | What Docket does                                                                                                                                                                                                                                                              | Where in the code                                                                                                                                |
+| ----------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Simplifying complex legal documents                               | Classifies the document, then produces a plain-language "what this is", a summary under 120 words, key points, and a glossary of the legal terms used.                                                                                                                        | [classify.ts](packages/core/src/classify.ts), [briefing.ts](server/src/ai/briefing.ts), [Terms.svelte](web/src/components/Terms.svelte)          |
+| Comparing contracts, agreements, or policies                      | Partial by design. Docket does not diff two documents; it sets what this notice demands next to the catalogue of paths people in that situation usually weigh, with pros, cons and urgency side by side, so the reader can see how their notice compares to the typical case. | [options.ts](packages/core/src/options.ts), [Options.svelte](web/src/components/Options.svelte)                                                  |
+| Highlighting important clauses, obligations, risks                | Extracts every deadline, "you must" obligation, and dollar amount with its source sentence; assigns severity by proximity and kind; shows a dated timeline with non-colour severity badges.                                                                                   | [deadlines.ts](packages/core/src/deadlines.ts), [obligations.ts](packages/core/src/obligations.ts), [timeline.ts](packages/core/src/timeline.ts) |
+| Answering questions based on provided documents                   | The Ask panel answers only from the document and the structured analysis, returns supporting quotes, and marks an answer `grounded: false` with a referral when the document does not contain the answer. Citations are checked against the document text.                    | [analysis.ts](server/src/routes/analysis.ts), [AskPanel.svelte](web/src/components/AskPanel.svelte)                                              |
+| Helping users understand options and next steps                   | Three or four options per document kind, each with pros, cons, urgency, and a typical next step, plus a model-written note on what each option means for this specific notice.                                                                                                | [options.ts](packages/core/src/options.ts), [prompts.ts](server/src/ai/prompts.ts)                                                               |
+| Generating summaries, checklists, actionable outputs              | A checklist whose items link back to specific deadlines, persisted per analysis in the browser; a printable prep sheet.                                                                                                                                                       | [Checklist.svelte](web/src/components/Checklist.svelte), [fallback.ts](packages/core/src/fallback.ts)                                            |
+| Helping users prepare information or questions for a professional | The prep sheet lists questions to ask, documents to gather, and facts to write down before the meeting, with a print layout.                                                                                                                                                  | [PrepSheet.svelte](web/src/components/PrepSheet.svelte), [app.css](web/src/app.css)                                                              |
+| Providing assistance rather than replacing professional advice    | One disclaimer constant appears on four surfaces: every UI view, every API response, every model prompt, and every fallback path. Every option points to a professional as the decision-maker.                                                                                | [types.ts](packages/core/src/types.ts) (`DISCLAIMER`), [Disclaimer.svelte](web/src/components/Disclaimer.svelte)                                 |
 
 ## How it works
 
@@ -95,14 +95,15 @@ npm run verify    # format check + lint + typecheck + test + build
 
 Server (`server/.env`, validated at boot by [config.ts](server/src/config.ts)):
 
-| Variable                | Default                 | Meaning                                                  |
-| ----------------------- | ----------------------- | -------------------------------------------------------- |
-| `GEMINI_API_KEY`        | none                    | Required when `DOCKET_AI_MODE=live`. Never committed.    |
-| `DOCKET_AI_MODE`        | `live`                  | `live` calls Gemini; `mock` runs fully offline.          |
-| `PORT`                  | `8787`                  | Port the API listens on.                                 |
-| `CORS_ORIGINS`          | `http://localhost:5173` | Comma-separated list of origins allowed to call the API. |
-| `RATE_LIMIT_PER_MINUTE` | `60`                    | Requests per minute per IP before `429`.                 |
-| `MAX_UPLOAD_BYTES`      | `2000000`               | Body and file size cap in bytes (2 MB).                  |
+| Variable                | Default                 | Meaning                                                                                                                       |
+| ----------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `GEMINI_API_KEY`        | none                    | Required when `DOCKET_AI_MODE=live`. Never committed.                                                                         |
+| `DOCKET_AI_MODE`        | `live`                  | `live` calls Gemini; `mock` runs fully offline.                                                                               |
+| `PORT`                  | `8787`                  | Port the API listens on.                                                                                                      |
+| `CORS_ORIGINS`          | `http://localhost:5173` | Comma-separated list of origins allowed to call the API.                                                                      |
+| `RATE_LIMIT_PER_MINUTE` | `60`                    | Requests per minute per client before `429`.                                                                                  |
+| `TRUST_PROXY`           | `false`                 | Set `true` only behind a reverse proxy that overwrites `X-Forwarded-For`; otherwise the socket address identifies the client. |
+| `MAX_UPLOAD_BYTES`      | `2000000`               | Body and file size cap in bytes (2 MB).                                                                                       |
 
 Web (`web/.env.local`, read by Vite at build time):
 
@@ -117,7 +118,7 @@ Web (`web/.env.local`, read by Vite at build time):
 
 https://OWNER.github.io/docket/
 
-The GitHub Pages build is **demo mode**: it runs the deterministic core directly in the browser and pairs it with pre-generated Gemini briefings for the three built-in sample notices. Pasted text is analysed in the browser and gets the deterministic fallback briefing with a visible "demo mode" note; the Ask panel is disabled with an explanation. The full pipeline (live Gemini briefings, PDF upload, grounded questions) needs the local server.
+The GitHub Pages build is **demo mode**: it runs the deterministic core directly in the browser and pairs it with pre-generated Gemini briefings for the three built-in sample notices. Pasted text is analysed in the browser and gets the deterministic fallback briefing with a visible "demo mode" note; the Ask panel answers offline by matching sentences in the document. The full pipeline (live Gemini briefings, PDF upload, grounded questions) needs the local server.
 
 ## Architecture
 
@@ -149,7 +150,7 @@ docket/
 | GET    | `/api/analysis/:id`     | none                                                                    | `200 Analysis` or `404`                |
 | POST   | `/api/analysis/:id/ask` | JSON `{ question }` (500 characters max)                                | `200 Answer`                           |
 
-Limits: 2 MB body, `.txt` and `.pdf` only (PDF must start with `%PDF-`), text between 40 words and 60 000 characters, `referenceDate` as `yyyy-mm-dd` (defaults to today), 60 requests per minute per IP.
+Limits: 2 MB body, `.txt` and `.pdf` only (PDF must start with `%PDF-`), text between 40 words and 60 000 characters, `referenceDate` as `yyyy-mm-dd` (defaults to today), 60 requests per minute per client address.
 
 ```bash
 # Analyse pasted text
@@ -185,7 +186,7 @@ Codes and statuses: `TOO_SHORT` (400), `INVALID_DATE` (400), `BAD_REQUEST` (400,
 
 - **Secure headers and CSP.** Hono secure headers on every response; the API CSP is `default-src 'none'`. [security.ts](server/src/middleware/security.ts)
 - **CORS allowlist.** Only origins listed in `CORS_ORIGINS` may call the API. [config.ts](server/src/config.ts)
-- **Rate limiting.** Fixed window, 60 requests per minute per IP, in memory. [rateLimit.ts](server/src/middleware/rateLimit.ts)
+- **Rate limiting.** Fixed window, 60 requests per minute per client, in memory, keyed by socket address unless `TRUST_PROXY=true`, so a forged `X-Forwarded-For` header cannot open a fresh window. Model output is rendered as text nodes only, and the web page ships a Content-Security-Policy. [rateLimit.ts](server/src/middleware/rateLimit.ts)
 - **Body and file limits with a magic-byte check.** 2 MB cap, `.txt`/`.pdf` only, PDFs must begin with `%PDF-`. [extract.ts](server/src/extract.ts)
 - **zod validation** of environment variables at boot, of every request body and parameter, and of every model response. [config.ts](server/src/config.ts), [schemas.ts](server/src/ai/schemas.ts)
 - **Sanitisation.** Tags and control characters stripped, length capped to 60 000 characters before anything else sees the text. [sanitize.ts](packages/core/src/sanitize.ts)
@@ -247,7 +248,7 @@ npx vitest run --root server      # one package, no coverage
 
 ## Quality gates
 
-ESLint 9 flat config with `typescript-eslint` `strictTypeChecked` and `stylistic`, plus `eslint-plugin-svelte`, with budgets `complexity: 10`, `max-lines-per-function: 60`, `max-lines: 250`, `max-depth: 3`, `max-params: 4`, and `--max-warnings 0`. Prettier (single quotes, width 100). TypeScript strict with `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`. CI runs `npm run verify` and `npm audit` on every push and pull request with read-only permissions and SHA-pinned actions. See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/decisions.md](docs/decisions.md).
+ESLint 10 flat config with `typescript-eslint` `strictTypeChecked` and `stylistic`, plus `eslint-plugin-svelte`, with budgets `complexity: 10`, `max-lines-per-function: 60`, `max-lines: 250`, `max-depth: 3`, `max-params: 4`, and `--max-warnings 0`. Prettier (single quotes, width 100). TypeScript strict with `noUncheckedIndexedAccess` and `exactOptionalPropertyTypes`. CI runs `npm run verify` and `npm audit` on every push and pull request with read-only permissions and SHA-pinned actions. See [CONTRIBUTING.md](CONTRIBUTING.md) and [docs/decisions.md](docs/decisions.md).
 
 ## License
 

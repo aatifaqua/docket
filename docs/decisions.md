@@ -54,7 +54,7 @@ Short records of the choices that shape Docket. Each one states the context, the
 
 **Context.** A public demo should not expose a Gemini key or run an unauthenticated model endpoint for the world, but a demo that does nothing is useless.
 
-**Decision.** When `VITE_API_BASE` is empty the web client imports `@docket/core` and runs the full deterministic analysis in the browser. Three sample notices ship with pre-generated Gemini briefings; pasted text gets the deterministic fallback briefing and a visible demo-mode note. Ask is disabled with an explanation. PDF upload is server-only.
+**Decision.** When `VITE_API_BASE` is empty the web client imports `@docket/core` and runs the full deterministic analysis in the browser. Three sample notices ship with pre-generated Gemini briefings; pasted text gets the deterministic fallback briefing and a visible demo-mode note. Ask answers offline by sentence matching. PDF upload is server-only.
 
 **Consequences.** The demo is static, free, and safe to leave online. Visitors see real Gemini prose for the samples and real extraction for their own text. Differences from the full product are stated on screen rather than hidden.
 
@@ -70,7 +70,7 @@ Short records of the choices that shape Docket. Each one states the context, the
 
 **Context.** The analyse endpoint costs a model call. The product is a single-instance tool with no accounts.
 
-**Decision.** A fixed-window limiter, 60 requests per minute per IP, kept in memory alongside the analysis store. Combined with the SHA-256 content cache, repeated submissions of the same document cost nothing.
+**Decision.** A fixed-window limiter, 60 requests per minute per client, keyed by socket address (or by `X-Forwarded-For` only when `TRUST_PROXY=true`), kept in memory alongside the analysis store. Combined with the SHA-256 content cache, repeated submissions of the same document cost nothing.
 
 **Consequences.** No external dependency and no configuration beyond one env var. Limits reset on restart and are not shared across processes, which matches the deployment model. A reverse proxy can add a second layer without code changes.
 

@@ -34,8 +34,9 @@ describe('Intake', () => {
     const sample = sampleNotice(2);
     await fireEvent.click(screen.getByRole('button', { name: sample.title }));
     expect(screen.getByLabelText('Document text')).toHaveValue(sample.text);
-    const status = screen.getByText(`Sample "${sample.title}" loaded into the text box.`);
-    expect(status).toHaveAttribute('aria-live', 'polite');
+    const status = screen.getByRole('status');
+    expect(status).toHaveTextContent(`Sample "${sample.title}" loaded`);
+    expect(screen.getByLabelText('Reference date')).toHaveValue(sample.receivedOn);
   });
 
   it('completes an analysis and reports it to the parent', async () => {
@@ -113,5 +114,16 @@ describe('Intake', () => {
   it('focuses the textarea when asked to', () => {
     render(Intake, { props: { oncomplete: vi.fn(), focusOnMount: true } });
     expect(screen.getByLabelText('Document text')).toHaveFocus();
+  });
+
+  it('explains why analysis is blocked when the reference date is cleared', async () => {
+    render(Intake, { props: { oncomplete: vi.fn() } });
+    const sample = sampleNotice(0);
+    await fireEvent.click(screen.getByRole('button', { name: sample.title }));
+    const date = screen.getByLabelText('Reference date');
+    await fireEvent.input(date, { target: { value: '' } });
+    expect(date).toHaveAttribute('aria-invalid', 'true');
+    expect(screen.getByText(/Choose a reference date/)).toBeVisible();
+    expect(screen.getByRole('button', { name: 'Analyse document' })).toBeDisabled();
   });
 });

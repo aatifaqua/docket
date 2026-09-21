@@ -8,6 +8,7 @@
   --text: #1b1b1f;
   --text-muted: #4a4a52;
   --border: #c9c9c4;
+  --border-strong: #6f6f77;
   --accent: #1f4e79;
   --accent-text: #ffffff;
   --focus: #b45309;
@@ -42,6 +43,7 @@
     --text: #e8e8ea;
     --text-muted: #b5b6bd;
     --border: #3d404a;
+    --border-strong: #8d909b;
     --accent: #8ab4f8;
     --accent-text: #0b1a2e;
     --focus: #fbbf24;
@@ -206,7 +208,7 @@ blockquote {
 
 .two-col {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
   gap: var(--space-4);
 }
 
@@ -234,7 +236,7 @@ input[type='text'] {
   font: inherit;
   color: var(--text);
   background: var(--surface);
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-strong);
   border-radius: var(--radius);
   padding: var(--space-2) var(--space-3);
   min-height: var(--touch);
