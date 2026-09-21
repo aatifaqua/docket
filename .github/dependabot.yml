@@ -1,10 +1,13 @@
+# Dependabot keeps security updates flowing automatically. Routine version bumps are
+# reviewed manually (see CONTRIBUTING.md) so the repository stays on a single branch;
+# a limit of 0 disables version-update pull requests but not security updates.
 version: 2
 updates:
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 0
     groups:
       dev-dependencies:
         dependency-type: development
@@ -12,3 +15,4 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    open-pull-requests-limit: 0

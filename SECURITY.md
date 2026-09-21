@@ -35,4 +35,4 @@ Docket handles text that people consider private and passes part of it to a lang
 
 **Secrets.** The key is read from `server/.env` (gitignored) or the process environment, only by the server. The web bundle has no access to it; the GitHub Pages demo runs without any backend or key.
 
-**Supply chain.** Dependencies are pinned in `package-lock.json`, Dependabot watches npm and GitHub Actions weekly, CI runs `npm audit --omit=dev --audit-level=high`, and all workflow actions are pinned to commit SHAs with least-privilege permissions.
+**Supply chain.** Dependencies are pinned in `package-lock.json`, Dependabot opens security updates for npm and GitHub Actions (routine version bumps are reviewed manually), CI runs `npm audit --omit=dev --audit-level=high`, and all workflow actions are pinned to commit SHAs with least-privilege permissions.

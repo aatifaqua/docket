@@ -191,7 +191,7 @@ Codes and statuses: `TOO_SHORT` (400), `INVALID_DATE` (400), `BAD_REQUEST` (400,
 - **No persistence.** Analyses live in a `Map` bounded to 200 entries with a 24-hour TTL; nothing is written to disk. [store.ts](server/src/store.ts)
 - **Log truncation.** Any document text that reaches a log line is cut to 80 characters.
 - **Secrets stay out of the repo.** The Gemini key is read only from `server/.env` (gitignored) or the process environment.
-- **Supply chain.** Dependabot for npm and GitHub Actions, `npm audit --audit-level=high` in CI, actions pinned to commit SHAs.
+- **Supply chain.** Dependabot security updates for npm and GitHub Actions (routine bumps are reviewed manually to keep a single branch), `npm audit --audit-level=high` in CI, actions pinned to commit SHAs.
 
 See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerability.
 
