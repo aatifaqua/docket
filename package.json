@@ -35,5 +35,18 @@
     "typescript-eslint": "8.70.0",
     "vitest": "5.0.1"
   },
-  "type": "module"
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aatifaqua/docket.git"
+  },
+  "homepage": "https://aatifaqua.github.io/docket/",
+  "keywords": [
+    "legal-information",
+    "plain-language",
+    "deadlines",
+    "gemini",
+    "svelte",
+    "hono"
+  ]
 }

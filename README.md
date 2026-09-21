@@ -5,9 +5,7 @@ Understand a legal notice you just received: what it is, what it asks of you, wh
 > [!IMPORTANT]
 > **Information, not legal advice.** Docket explains documents in plain language so you can decide what to do next. It is general information only, not legal advice, and it can miss details that matter in your situation. Check every deadline with the court or sender that issued the document, and talk to a licensed lawyer or a legal-aid organisation before you act.
 
-<!-- Replace OWNER with your GitHub user or organisation in the badge and demo URLs below. -->
-
-[![CI](https://github.com/OWNER/docket/actions/workflows/ci.yml/badge.svg)](https://github.com/OWNER/docket/actions/workflows/ci.yml)
+[![CI](https://github.com/aatifaqua/docket/actions/workflows/ci.yml/badge.svg)](https://github.com/aatifaqua/docket/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Node 22](https://img.shields.io/badge/Node-22-339933?logo=node.js&logoColor=white)](.nvmrc)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](tsconfig.base.json)
@@ -114,9 +112,7 @@ Web (`web/.env.local`, read by Vite at build time):
 
 ### Live demo
 
-<!-- Replace OWNER below. -->
-
-https://OWNER.github.io/docket/
+https://aatifaqua.github.io/docket/
 
 The GitHub Pages build is **demo mode**: it runs the deterministic core directly in the browser and pairs it with pre-generated Gemini briefings for the three built-in sample notices. Pasted text is analysed in the browser and gets the deterministic fallback briefing with a visible "demo mode" note; the Ask panel answers offline by matching sentences in the document. The full pipeline (live Gemini briefings, PDF upload, grounded questions) needs the local server.
 
