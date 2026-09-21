@@ -95,12 +95,13 @@ function analyzeInBrowser({ text, referenceDate, sampleId }: AnalyzeInput): Anal
     if (error instanceof CoreError) throw new ApiError(error.message);
     throw error;
   }
+  const { briefing, source } = demoBriefingFor(text, sampleId, core);
   return {
     id: `demo-${hashText(`${text}\n${referenceDate}`)}`,
     createdAt: new Date().toISOString(),
     core,
-    briefing: demoBriefingFor(text, sampleId, core),
-    source: 'fallback',
+    briefing,
+    source,
     disclaimer: DISCLAIMER,
   };
 }
