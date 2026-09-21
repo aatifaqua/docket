@@ -60,6 +60,7 @@ describe('demo mode', () => {
       sampleId: sample.id,
     });
     expect(analysis.briefing).toEqual(demoBriefings['sample-summons']);
+    expect(analysis.source).toBe('gemini');
   });
 
   it('falls back to the deterministic briefing when the sample text was edited', async () => {

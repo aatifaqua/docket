@@ -6,7 +6,7 @@ import {
   DISCLAIMER,
   SAMPLE_NOTICES,
 } from '@docket/core';
-import type { Analysis, Answer, Briefing, CoreAnalysis } from '@docket/core';
+import type { Analysis, Answer, Briefing, BriefingSource, CoreAnalysis } from '@docket/core';
 import demoBriefings from './demo-briefings.json';
 
 const REQUEST_TIMEOUT_MS = 60_000;
@@ -74,10 +74,17 @@ function hashText(input: string): string {
   return (hash >>> 0).toString(16);
 }
 
-function demoBriefingFor(text: string, sampleId: string | null | undefined, core: CoreAnalysis) {
+/** Sample notices ship with a briefing Gemini wrote ahead of time; anything else is explained offline. */
+function demoBriefingFor(
+  text: string,
+  sampleId: string | null | undefined,
+  core: CoreAnalysis,
+): { briefing: Briefing; source: BriefingSource } {
   const sample = SAMPLE_NOTICES.find((entry) => entry.id === sampleId);
   const pregenerated = sample?.text === text ? PREGENERATED[sample.id] : null;
-  return pregenerated ?? buildFallbackBriefing(core);
+  return pregenerated
+    ? { briefing: pregenerated, source: 'gemini' }
+    : { briefing: buildFallbackBriefing(core), source: 'fallback' };
 }
 
 function analyzeInBrowser({ text, referenceDate, sampleId }: AnalyzeInput): Analysis {

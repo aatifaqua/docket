@@ -24,10 +24,12 @@
   let heading = $state<HTMLHeadingElement | null>(null);
 
   const sourceNote = $derived(
-    isDemoMode()
-      ? 'Demo mode: analysed in your browser without the AI language layer.'
-      : analysis.source === 'gemini'
-        ? 'Explanation written with Gemini from the facts found in your document.'
+    analysis.source === 'gemini'
+      ? isDemoMode()
+        ? 'Demo mode: facts found in your browser; the explanation was written with Gemini ahead of time for this sample.'
+        : 'Explanation written with Gemini from the facts found in your document.'
+      : isDemoMode()
+        ? 'Demo mode: analysed in your browser without the AI language layer.'
         : 'Explanation generated offline from the facts found in your document.',
   );
 
