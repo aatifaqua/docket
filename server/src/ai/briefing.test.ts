@@ -1,11 +1,12 @@
 import { describe, expect, it, vi } from 'vitest';
-import { SAMPLE_NOTICES, analyzeDocument, type Briefing } from '@docket/core';
+import { DISCLAIMER, SAMPLE_NOTICES, analyzeDocument, type Briefing } from '@docket/core';
 import type { Logger } from '../log.ts';
 import {
   createGeminiBriefingService,
   createMockBriefingService,
   filterCitations,
   reconcileBriefing,
+  withoutDisclaimer,
 } from './briefing.ts';
 import type { GeminiClient } from './gemini.ts';
 
@@ -49,6 +50,16 @@ function spyLogger(): { logger: Logger; warn: WarnSpy } {
   const warn = vi.fn<Logger['warn']>();
   return { logger: { info: () => undefined, warn }, warn };
 }
+
+describe('withoutDisclaimer', () => {
+  it('removes an echoed disclaimer and keeps the rest of the prose', () => {
+    expect(withoutDisclaimer(`${DISCLAIMER} This is a pay or quit notice.`)).toBe(
+      'This is a pay or quit notice.',
+    );
+    expect(withoutDisclaimer('Plain text.')).toBe('Plain text.');
+    expect(withoutDisclaimer(DISCLAIMER)).toBe(DISCLAIMER);
+  });
+});
 
 describe('mock briefing service', () => {
   it('uses the deterministic fallback for briefings and answers', async () => {

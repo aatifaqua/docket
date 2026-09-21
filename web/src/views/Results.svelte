@@ -37,6 +37,16 @@
     analysis.core.obligations.filter((obligation) => obligation.party === 'you'),
   );
   const hasDemands = $derived(yourObligations.length > 0 || analysis.core.amounts.length > 0);
+  /** One row per source sentence, so three figures from one sentence do not repeat it three times. */
+  const amountRows = $derived.by(() => {
+    const rows: { context: string; amounts: number[] }[] = [];
+    for (const amount of analysis.core.amounts) {
+      const row = rows.find((entry) => entry.context === amount.context);
+      if (row === undefined) rows.push({ context: amount.context, amounts: [amount.amount] });
+      else row.amounts.push(amount.amount);
+    }
+    return rows;
+  });
 
   $effect(() => {
     heading?.focus();
@@ -90,10 +100,10 @@
           <div>
             <h4 id="amounts-heading">Amounts mentioned</h4>
             <ul aria-labelledby="amounts-heading">
-              {#each analysis.core.amounts as amount (amount.id)}
+              {#each amountRows as row (row.context)}
                 <li>
-                  <strong>{formatMoney(amount.amount)}</strong>
-                  <span class="muted">{amount.context}</span>
+                  <strong>{row.amounts.map(formatMoney).join(', ')}</strong>
+                  <span class="muted">{row.context}</span>
                 </li>
               {/each}
             </ul>

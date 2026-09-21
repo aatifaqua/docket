@@ -78,7 +78,7 @@ describe('Results', () => {
       props: { analysis, sourceText: sampleNotice(0).text, onrestart: vi.fn() },
     });
     expect(screen.getByRole('heading', { name: 'What it asks of you' })).toBeVisible();
-    expect(screen.getByText('$1,925.00')).toBeVisible();
+    expect(screen.getByRole('list', { name: 'Amounts mentioned' })).toHaveTextContent('$1,925.00');
     first.unmount();
 
     const amountsOnly = {

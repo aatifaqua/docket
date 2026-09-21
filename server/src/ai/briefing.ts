@@ -1,6 +1,7 @@
 import {
   buildFallbackAnswer,
   buildFallbackBriefing,
+  DISCLAIMER,
   type Answer,
   type Briefing,
   type BriefingSource,
@@ -52,6 +53,8 @@ export function reconcileBriefing(briefing: Briefing, core: CoreAnalysis): Brief
   const deadlineIds = new Set(core.deadlines.map((deadline) => deadline.id));
   return {
     ...briefing,
+    whatThisIs: withoutDisclaimer(briefing.whatThisIs),
+    plainSummary: withoutDisclaimer(briefing.plainSummary),
     optionNotes: briefing.optionNotes.filter((note) => optionIds.has(note.optionId)),
     checklist: briefing.checklist.map((item, index) => ({
       id: `ck-${String(index + 1)}`,
@@ -62,6 +65,16 @@ export function reconcileBriefing(briefing: Briefing, core: CoreAnalysis): Brief
           : null,
     })),
   };
+}
+
+/** The UI shows the disclaimer once; models sometimes echo it, which wastes the reader's attention. */
+export function withoutDisclaimer(prose: string): string {
+  const cleaned = prose
+    .split(DISCLAIMER)
+    .join(' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+  return cleaned === '' ? prose : cleaned;
 }
 
 /** Drops any citation that does not literally occur in the document, so quotes cannot be invented. */
