@@ -226,7 +226,7 @@ Every module ships a colocated `*.test.ts`; `packages/core` enforces 100 % cover
   `CORS_ORIGINS`, fixed-window rate limit (60/min per client, socket-keyed unless `TRUST_PROXY=true`, in-memory), body limit, zod
   validation, error handler returning generic 500 text and never a stack. Logs truncate
   any document text to 80 chars.
-- Store: `Map` bounded to 200 analyses, 24 h TTL, evicts oldest. Document text is kept
+- Store: `Map` bounded to 200 analyses, 1 h TTL, evicts oldest. Document text is kept
   only in memory for the follow-up feature and dies with the entry.
 - AI mode: `DOCKET_AI_MODE=live|mock`. `live` requires `GEMINI_API_KEY`. `mock` never
   calls the network and uses `buildFallbackBriefing`. Tests and CI run in `mock`.

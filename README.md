@@ -182,13 +182,16 @@ Codes and statuses: `TOO_SHORT` (400), `INVALID_DATE` (400), `BAD_REQUEST` (400,
 
 - **Secure headers and CSP.** Hono secure headers on every response; the API CSP is `default-src 'none'`. [security.ts](server/src/middleware/security.ts)
 - **CORS allowlist.** Only origins listed in `CORS_ORIGINS` may call the API. [config.ts](server/src/config.ts)
+- **Request ids.** Every request gets a server-generated id; inbound `X-Request-Id` headers are ignored so log correlation cannot be forged. [logger.ts](server/src/middleware/logger.ts)
+- **Upload guards.** PDFs are capped at 40 pages before parsing, on top of the 2 MB body limit and magic-byte check. [extract.ts](server/src/extract.ts)
+- **Static analysis.** CodeQL runs on every push alongside `npm audit`. [codeql.yml](.github/workflows/codeql.yml)
 - **Rate limiting.** Fixed window, 60 requests per minute per client, in memory, keyed by socket address unless `TRUST_PROXY=true`, so a forged `X-Forwarded-For` header cannot open a fresh window. Model output is rendered as text nodes only, and the web page ships a Content-Security-Policy. [rateLimit.ts](server/src/middleware/rateLimit.ts)
 - **Body and file limits with a magic-byte check.** 2 MB cap, `.txt`/`.pdf` only, PDFs must begin with `%PDF-`. [extract.ts](server/src/extract.ts)
 - **zod validation** of environment variables at boot, of every request body and parameter, and of every model response. [config.ts](server/src/config.ts), [schemas.ts](server/src/ai/schemas.ts)
 - **Sanitisation.** Tags and control characters stripped, length capped to 60 000 characters before anything else sees the text. [sanitize.ts](packages/core/src/sanitize.ts)
 - **Prompt-injection hardening.** The system prompt tells the model the document is untrusted data, to ignore any instructions inside it, and never to invent dates, amounts, or laws not present in the supplied analysis. [prompts.ts](server/src/ai/prompts.ts)
 - **Citation integrity.** Quotes returned by the Ask endpoint are checked against the document text and unsupported citations are dropped; option notes and checklist links that point at ids the core did not produce are dropped the same way. [briefing.ts](server/src/ai/briefing.ts)
-- **No persistence.** Analyses live in a `Map` bounded to 200 entries with a 24-hour TTL; nothing is written to disk. [store.ts](server/src/store.ts)
+- **No persistence.** Analyses live in a `Map` bounded to 200 entries with a one-hour TTL; nothing is written to disk. [store.ts](server/src/store.ts)
 - **Log truncation.** Any document text that reaches a log line is cut to 80 characters.
 - **Secrets stay out of the repo.** The Gemini key is read only from `server/.env` (gitignored) or the process environment.
 - **Supply chain.** Dependabot security updates for npm and GitHub Actions (routine bumps are reviewed manually to keep a single branch), `npm audit --audit-level=high` in CI, actions pinned to commit SHAs.
@@ -212,7 +215,10 @@ See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerab
 - The deterministic core produces every fact, so no model call is spent on extraction.
 - Exactly one schema-bound Gemini call per analysis, at `temperature 0.2` with a 30-second timeout.
 - SHA-256 content cache: re-analysing the same text and date returns the stored result without a model call. Results that had to fall back because the model was unavailable are not cached in live mode, so the next identical request tries Gemini again. [cache.ts](server/src/cache.ts)
-- Bounded stores: 200 analyses, 24-hour TTL, oldest evicted first.
+- Bounded stores: 200 analyses, one-hour TTL, oldest evicted first.
+- One sanitising pass and one sentence split per analysis; every extractor reads the same token list and stops at its cap. [analyze.ts](packages/core/src/analyze.ts)
+- Compact prompts: the analysis sent to Gemini omits the quoted source sentences the model already has in the document block. [prompts.ts](server/src/ai/prompts.ts)
+- Response compression for clients that accept it, and an ETag plus a short private cache on analysis reads. [app.ts](server/src/app.ts)
 - The Results view is a lazy-loaded chunk, so the intake bundle stays small.
 - `@docket/core` has zero runtime dependencies; the whole tree is Hono, `@google/genai`, zod, a PDF text extractor, Svelte, and Vite.
 
@@ -237,7 +243,7 @@ npx vitest run --root server      # one package, no coverage
 - Dates and currency are parsed in US formats (`MM/DD/YYYY`, `Month d, yyyy`, `$1,234.56`). Parsers are isolated so other locales can be added.
 - Deadline maths is calendar days from the reference date. The UI says so and tells users to confirm with the issuing body or a professional; court and statutory rules about business days or service periods are not modelled.
 - No jurisdiction-specific law. The options catalogue describes typical paths, not the rules of any state or country.
-- No accounts, no database. Results live in server memory for at most 24 hours and are lost on restart.
+- No accounts, no database. Results live in server memory for at most one hour and are lost on restart.
 - PDF extraction needs the server; the browser demo accepts text only.
 - Model chain `gemini-3.8-flash` then `gemini-3.6-flash` then `gemini-3.5-flash`, one retry with backoff on 429/503 before moving down the chain. Any failure or invalid JSON falls back to the deterministic briefing and the response says `source: 'fallback'`.
 - The classifier is keyword-based; an unfamiliar document is reported as `unknown` with generic options rather than guessed.

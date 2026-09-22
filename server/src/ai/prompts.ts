@@ -22,8 +22,28 @@ function documentBlock(text: string): string {
   return `<<DOCUMENT>>\n${neutraliseMarkers(text.slice(0, MAX_DOCUMENT_CHARS))}\n<</DOCUMENT>>`;
 }
 
+/**
+ * The analysis without the quoted source sentences: the model already receives the full
+ * document, so repeating those quotes would only enlarge the prompt.
+ */
+export function compactAnalysis(core: CoreAnalysis): Record<string, unknown> {
+  return {
+    ...core,
+    deadlines: core.deadlines.map(({ id, kind, label, date, daysFromReference, severity }) => ({
+      id,
+      kind,
+      label,
+      date,
+      daysFromReference,
+      severity,
+    })),
+    obligations: core.obligations.map(({ id, text, party }) => ({ id, text, party })),
+    amounts: core.amounts.map(({ id, amount, currency }) => ({ id, amount, currency })),
+  };
+}
+
 function analysisBlock(core: CoreAnalysis): string {
-  return `<<ANALYSIS>>\n${JSON.stringify(core)}\n<</ANALYSIS>>`;
+  return `<<ANALYSIS>>\n${JSON.stringify(compactAnalysis(core))}\n<</ANALYSIS>>`;
 }
 
 /**

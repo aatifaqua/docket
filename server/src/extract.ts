@@ -1,9 +1,11 @@
-import { extractText } from 'unpdf';
+import { extractText, getDocumentProxy } from 'unpdf';
 import { ApiError } from './middleware/errors.ts';
 
 const PDF_MAGIC = [0x25, 0x50, 0x44, 0x46, 0x2d]; // "%PDF-"
 const NUL_BYTE = 0;
 const BYTES_PER_MB = 1_000_000;
+/** A notice is a handful of pages; the cap stops a huge PDF from tying up the parser. */
+const MAX_PDF_PAGES = 40;
 
 const UNSUPPORTED = new ApiError(
   415,
@@ -33,8 +35,17 @@ function decodeUtf8(bytes: Uint8Array): string | undefined {
 async function readPdf(bytes: Uint8Array): Promise<string> {
   let text: string;
   try {
-    ({ text } = await extractText(bytes, { mergePages: true }));
-  } catch {
+    const document = await getDocumentProxy(bytes);
+    if (document.numPages > MAX_PDF_PAGES) {
+      throw new ApiError(
+        413,
+        'PDF_TOO_LONG',
+        `Please upload a PDF of ${String(MAX_PDF_PAGES)} pages or fewer, or paste the relevant text.`,
+      );
+    }
+    ({ text } = await extractText(document, { mergePages: true }));
+  } catch (error) {
+    if (error instanceof ApiError) throw error;
     throw UNREADABLE_PDF;
   }
   if (text.trim().length === 0) throw UNREADABLE_PDF;

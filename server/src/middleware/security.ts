@@ -11,6 +11,7 @@ export function securityHeaders(): MiddlewareHandler {
     contentSecurityPolicy: { defaultSrc: ["'none'"], frameAncestors: ["'none'"] },
     crossOriginResourcePolicy: 'same-site',
     referrerPolicy: 'no-referrer',
+    permissionsPolicy: { camera: [], microphone: [], geolocation: [], payment: [] },
   });
 }
 

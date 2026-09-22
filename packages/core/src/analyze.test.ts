@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CoreError, analyzeDocument } from './analyze.ts';
+import { sanitizeText } from './sanitize.ts';
 import { MAX_INPUT_CHARS } from './sanitize.ts';
 import { SAMPLE_NOTICES } from './samples.ts';
 
@@ -91,5 +92,13 @@ describe('analyzeDocument', () => {
       ['other', '2026-11-02'],
     ]);
     expect(debt.amounts[0]?.amount).toBe(2317.45);
+  });
+
+  it('skips the sanitising pass when the caller already sanitised the text', () => {
+    const sample = SAMPLE_NOTICES[0]!;
+    const clean = sanitizeText(sample.text);
+    const direct = analyzeDocument(sample.text, '2026-10-01');
+    const presanitised = analyzeDocument(clean, '2026-10-01', { sanitized: true });
+    expect(presanitised).toEqual(direct);
   });
 });

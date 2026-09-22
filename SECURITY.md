@@ -31,7 +31,7 @@ Docket handles text that people consider private and passes part of it to a lang
 
 **Headers and CORS.** Secure headers on every response, `default-src 'none'` CSP for the API, and a CORS allowlist from `CORS_ORIGINS`.
 
-**Retention.** Analyses live in memory only, bounded to 200 entries with a 24-hour TTL, evicted oldest first. Nothing is written to disk. Log lines truncate document text to 80 characters. Error responses are generic and never include a stack trace.
+**Retention.** Analyses live in memory only, bounded to 200 entries with a one-hour TTL, evicted oldest first. Nothing is written to disk. Log lines truncate document text to 80 characters. Error responses are generic and never include a stack trace.
 
 **Secrets.** The key is read from `server/.env` (gitignored) or the process environment, only by the server. The web bundle has no access to it; the GitHub Pages demo runs without any backend or key.
 

@@ -12,9 +12,15 @@ const MONEY_RE = new RegExp(String.raw`\$\s?(${NUMBER})|\b(${NUMBER})\s+(?:US\s+
  * exactly the figures in the document.
  */
 export function extractAmounts(text: string): MoneyAmount[] {
+  return extractAmountsFromSentences(splitSentences(text));
+}
+
+/** Same extraction over pre-split sentences; stops scanning once the cap is reached. */
+export function extractAmountsFromSentences(sentences: readonly string[]): MoneyAmount[] {
   const found: MoneyAmount[] = [];
   const seen = new Set<string>();
-  for (const sentence of splitSentences(text)) {
+  for (const sentence of sentences) {
+    if (found.length >= MAX_AMOUNTS) break;
     const context = clip(sentence, CONTEXT_MAX);
     for (const match of sentence.matchAll(MONEY_RE)) {
       const amount = Number(String(match[1] ?? match[2]).replace(/,/g, ''));

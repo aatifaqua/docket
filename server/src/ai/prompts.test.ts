@@ -7,6 +7,7 @@ import {
   neutraliseMarkers,
   buildBriefingSystemPrompt,
   buildBriefingUserPrompt,
+  compactAnalysis,
 } from './prompts.ts';
 
 const REQUIRED_PHRASES = [
@@ -42,7 +43,8 @@ describe('user prompts', () => {
     const prompt = buildBriefingUserPrompt(core, sample.text);
     expect(prompt).toContain('<<ANALYSIS>>');
     expect(prompt).toContain('<</ANALYSIS>>');
-    expect(prompt).toContain(JSON.stringify(core));
+    expect(prompt).toContain(JSON.stringify(compactAnalysis(core)));
+    expect(prompt).not.toContain('"sourceText"');
     expect(prompt).toContain(`<<DOCUMENT>>\n${sample.text}\n<</DOCUMENT>>`);
   });
 

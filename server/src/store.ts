@@ -8,7 +8,8 @@ export interface BoundedMapOptions {
 }
 
 const DEFAULT_MAX_ENTRIES = 200;
-const DEFAULT_TTL_MS = 24 * 60 * 60 * 1000;
+/** One hour is enough for follow-up questions; shorter retention means less document text in memory. */
+const DEFAULT_TTL_MS = 60 * 60 * 1000;
 
 interface Entry<V> {
   value: V;

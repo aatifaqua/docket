@@ -105,7 +105,7 @@ export function analyzeRoutes(deps: AnalyzeDeps): Hono {
       if (hit !== undefined) return c.json(hit.analysis, 200);
       deps.cache.delete(hash);
     }
-    const core = analyzeDocument(rawText, referenceDate);
+    const core = analyzeDocument(text, referenceDate, { sanitized: true });
     const generated = await deps.briefingService.generate(core, text);
     const analysis: Analysis = {
       id: randomUUID(),

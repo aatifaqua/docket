@@ -1,12 +1,13 @@
 import { Hono } from 'hono';
 import { bodyLimit } from 'hono/body-limit';
-import { requestId } from 'hono/request-id';
+import { compress } from 'hono/compress';
+import { etag } from 'hono/etag';
 import type { BriefingService } from './ai/briefing.ts';
 import { ContentCache } from './cache.ts';
 import type { Config } from './config.ts';
 import { createLogger, type Logger } from './log.ts';
 import { createErrorHandler, notFoundHandler } from './middleware/errors.ts';
-import { requestLogger } from './middleware/logger.ts';
+import { requestIdentity, requestLogger } from './middleware/logger.ts';
 import { rateLimit } from './middleware/rateLimit.ts';
 import { corsAllowlist, securityHeaders } from './middleware/security.ts';
 import { analysisRoutes } from './routes/analysis.ts';
@@ -26,6 +27,8 @@ export interface AppDeps {
  * Assembles middleware and routes without listening, so tests drive it with `app.request()`.
  * Order matters: headers and CORS apply to every response including errors, the rate limiter
  * runs before any body is read, and the body limit guards every handler that parses input.
+ * Responses are compressed when the client accepts it, and analysis reads carry an ETag so a
+ * client that re-fetches an unchanged result pays for a 304 instead of the full JSON.
  */
 export function createApp(deps: AppDeps): Hono {
   const { config } = deps;
@@ -35,8 +38,10 @@ export function createApp(deps: AppDeps): Hono {
 
   app.use(securityHeaders());
   app.use(corsAllowlist(config.corsOrigins));
-  app.use(requestId());
+  app.use(requestIdentity());
   app.use(requestLogger(logger));
+  app.use(compress());
+  app.use('/api/analysis/*', etag());
   app.use(rateLimit({ limit: config.rateLimitPerMinute, trustProxy: config.trustProxy }));
   app.use(bodyLimit({ maxSize: config.maxUploadBytes }));
 

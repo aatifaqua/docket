@@ -34,7 +34,8 @@
   let textarea = $state<HTMLTextAreaElement | null>(null);
 
   const wordCount = $derived(countWords(text));
-  const sampleId = $derived(SAMPLE_NOTICES.find((sample) => sample.text === text)?.id ?? null);
+  /** Set by a sample chip and cleared on the first edit, so nothing is compared per keystroke. */
+  let sampleId = $state<string | null>(null);
   const canAnalyze = $derived(
     !busy && (wordCount >= MIN_INPUT_WORDS || pendingFile !== null) && referenceDate !== '',
   );
@@ -48,8 +49,14 @@
     if (demo) void loadDemo();
   }
 
+  function edited(): void {
+    sampleId = null;
+    warmUp();
+  }
+
   function pickSample(sample: (typeof SAMPLE_NOTICES)[number]): void {
     text = sample.text;
+    sampleId = sample.id;
     referenceDate = sample.receivedOn;
     pendingFile = null;
     error = '';
@@ -123,7 +130,7 @@
         bind:value={text}
         aria-describedby="notice-text-hint notice-text-count"
         disabled={busy}
-        oninput={warmUp}
+        oninput={edited}
         spellcheck="false"></textarea>
       <p class="hint" id="notice-text-count">{text.length} characters, {wordCount} words</p>
     </div>

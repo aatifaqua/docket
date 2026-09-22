@@ -52,4 +52,9 @@ describe('extractObligations', () => {
     const many = Array.from({ length: 30 }, (_, i) => `You must pay item ${String(i)}.`).join(' ');
     expect(extractObligations(many)).toHaveLength(25);
   });
+
+  it('stops scanning once the cap is reached', () => {
+    const text = Array.from({ length: 40 }, (_, i) => `You must pay item ${String(i)}.`).join(' ');
+    expect(extractObligations(text)).toHaveLength(25);
+  });
 });

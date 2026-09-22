@@ -53,7 +53,12 @@ async function readQuestion(body: Promise<unknown>): Promise<string> {
  */
 export function analysisRoutes(deps: AnalysisDeps): Hono {
   const app = new Hono();
-  app.get('/api/analysis/:id', (c) => c.json(lookup(deps.store, c.req.param('id')).analysis));
+  app.get('/api/analysis/:id', (c) => {
+    const { analysis } = lookup(deps.store, c.req.param('id'));
+    // Results never change once stored, so a short private cache is safe and saves re-fetches.
+    c.header('Cache-Control', 'private, max-age=300');
+    return c.json(analysis);
+  });
   app.post('/api/analysis/:id/ask', async (c) => {
     const entry = lookup(deps.store, c.req.param('id'));
     const question = await readQuestion(c.req.json());

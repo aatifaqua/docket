@@ -119,8 +119,16 @@ function buildDeadlines(input: SentenceDeadlines): Deadline[] {
  * `referenceDate` in calendar days; the model never supplies a date.
  */
 export function extractDeadlines(text: string, referenceDate: string): Deadline[] {
+  return extractDeadlinesFromSentences(splitSentences(text), referenceDate);
+}
+
+/** Same extraction over pre-split sentences, so the document is tokenised once per analysis. */
+export function extractDeadlinesFromSentences(
+  sentences: readonly string[],
+  referenceDate: string,
+): Deadline[] {
   const found: Deadline[] = [];
-  for (const sentence of splitSentences(text)) {
+  for (const sentence of sentences) {
     const matched = TRIGGERS.filter((trigger) => trigger.pattern.test(sentence));
     if (matched.length === 0 && !DUE_CUE_RE.test(sentence)) continue;
     const triggers = matched.length > 0 ? matched : [OTHER];

@@ -22,7 +22,7 @@ Short records of the choices that shape Docket. Each one states the context, the
 
 **Context.** Analyses must survive long enough for the follow-up Ask feature, but the documents people paste are sensitive and the product has no accounts.
 
-**Decision.** A `Map` bounded to 200 analyses with a 24-hour TTL, oldest evicted first. Document text is kept only in that entry and dies with it. Nothing is written to disk.
+**Decision.** A `Map` bounded to 200 analyses with a one-hour TTL, oldest evicted first. Document text is kept only in that entry and dies with it. Nothing is written to disk.
 
 **Consequences.** Zero persistence to secure, back up, or wipe on request; a restart clears everything, which is acceptable because every result is reproducible from the text. It does not scale across processes, which is fine for a single-instance tool and is an explicit non-goal. If multi-instance deployment is ever needed, the store interface is the seam to replace.
 

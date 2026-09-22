@@ -49,10 +49,16 @@ function obligationFor(sentence: string): Omit<Obligation, 'id'> | null {
  * plainly, keeping the original sentence for reference.
  */
 export function extractObligations(text: string): Obligation[] {
+  return extractObligationsFromSentences(splitSentences(text));
+}
+
+/** Same extraction over sentences that were already split, so one pass serves every extractor. */
+export function extractObligationsFromSentences(sentences: readonly string[]): Obligation[] {
   const found: Obligation[] = [];
-  for (const sentence of splitSentences(text)) {
+  for (const sentence of sentences) {
+    if (found.length >= MAX_OBLIGATIONS) break;
     const obligation = obligationFor(sentence);
     if (obligation !== null) found.push({ id: `ob-${String(found.length)}`, ...obligation });
   }
-  return found.slice(0, MAX_OBLIGATIONS);
+  return found;
 }

@@ -36,4 +36,12 @@ describe('extractAmounts', () => {
   it('returns an empty list when no money is mentioned', () => {
     expect(extractAmounts('Please respond within 30 days.')).toEqual([]);
   });
+
+  it('stops scanning once the cap is reached', () => {
+    const text = Array.from(
+      { length: 40 },
+      (_, i) => `Fee ${String(i)} is $${String(i + 1)}.00.`,
+    ).join(' ');
+    expect(extractAmounts(text)).toHaveLength(30);
+  });
 });
