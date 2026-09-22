@@ -20,6 +20,22 @@ export function splitSentences(text: string): string[] {
     .filter((sentence) => sentence.length > 0);
 }
 
+const TRAILING_PUNCTUATION = new Set(['.', ';', ':', ',']);
+
+function isTrailing(character: string): boolean {
+  return TRAILING_PUNCTUATION.has(character) || character.trim() === '';
+}
+
+/**
+ * Removes trailing punctuation and whitespace in linear time. A `[.;:,\s]+$` regex here
+ * backtracks polynomially on long inputs, so every extractor should use this instead.
+ */
+export function trimTrailingPunctuation(text: string): string {
+  let end = text.length;
+  while (end > 0 && isTrailing(text.charAt(end - 1))) end -= 1;
+  return text.slice(0, end);
+}
+
 /** Truncates to `max` characters, ending with an ellipsis so the cut is visible to the reader. */
 export function clip(text: string, max: number): string {
   return text.length <= max ? text : `${text.slice(0, max - 1).trimEnd()}…`;

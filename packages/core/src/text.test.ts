@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { capitalize, clip, splitSentences, squash } from './text.ts';
+import { capitalize, clip, splitSentences, squash, trimTrailingPunctuation } from './text.ts';
 
 describe('splitSentences', () => {
   it('splits on sentence punctuation followed by a capital, digit or quote', () => {
@@ -41,5 +41,12 @@ describe('squash, clip and capitalize', () => {
   it('capitalizes the first character only', () => {
     expect(capitalize('pay rent')).toBe('Pay rent');
     expect(capitalize('')).toBe('');
+  });
+
+  it('trims trailing punctuation and whitespace in one linear pass', () => {
+    expect(trimTrailingPunctuation('pay now. ; , ')).toBe('pay now');
+    expect(trimTrailingPunctuation('...')).toBe('');
+    expect(trimTrailingPunctuation('')).toBe('');
+    expect(trimTrailingPunctuation('a.b')).toBe('a.b');
   });
 });

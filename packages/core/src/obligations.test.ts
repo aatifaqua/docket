@@ -58,8 +58,13 @@ describe('extractObligations', () => {
     expect(extractObligations(text)).toHaveLength(25);
   });
 
-  it('trims trailing punctuation without a backtracking regex, even for punctuation-only clauses', () => {
-    expect(extractObligations('You must pay the rent now.;, ')[0]?.text).toBe('Pay the rent now');
-    expect(extractObligations('You must ...')[0]?.text).toBe('');
+  it('trims mixed trailing punctuation and whitespace from the restated clause', () => {
+    expect(extractObligations('You must pay the rent now. ; ,')[0]?.text).toBe('Pay the rent now');
+  });
+
+  it('skips list headings whose lead is followed only by punctuation', () => {
+    expect(extractObligations('You must pay rent and leave.')).toHaveLength(1);
+    expect(extractObligations('You must ...')).toHaveLength(0);
+    expect(extractObligations('The landlord will ...')).toHaveLength(0);
   });
 });
