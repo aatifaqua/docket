@@ -171,6 +171,18 @@ blockquote {
   margin: 0;
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.brand-mark {
+  flex: none;
+  width: 2.5rem;
+  height: auto;
+}
+
 .site-main {
   padding-block: var(--space-6) var(--space-8);
 }
