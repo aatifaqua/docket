@@ -13,8 +13,21 @@ const YOU_CUE_RE = /\b(failure to|shall|is required|are required|must be)\b/i;
 const SENDER_LEAD_RE =
   /\b(we|our (?:office|client|firm|company)|the (?:landlord|plaintiff|company|employer|creditor|insurer|firm|agency|court|collector|owner|management))\s+(will|may|intend to|intends to|reserve the right to|reserves the right to|shall)\s+(?=\S)/i;
 
+const TRAILING_PUNCTUATION = new Set(['.', ';', ':', ',']);
+
+/** Linear trailing trim; a `[...]+$` regex here would backtrack polynomially on long clauses. */
+function trimTrailing(clause: string): string {
+  let end = clause.length;
+  while (end > 0) {
+    const last = clause.charAt(end - 1);
+    if (!TRAILING_PUNCTUATION.has(last) && last.trim() !== '') break;
+    end -= 1;
+  }
+  return clause.slice(0, end);
+}
+
 function restate(clause: string): string {
-  return clip(capitalize(clause.replace(/[.;:,\s]+$/, '')), TEXT_MAX);
+  return clip(capitalize(trimTrailing(clause)), TEXT_MAX);
 }
 
 function senderVerb(raw: string): string {
