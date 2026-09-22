@@ -216,6 +216,9 @@ See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerab
 - Exactly one schema-bound Gemini call per analysis, at `temperature 0.2` with a 30-second timeout.
 - SHA-256 content cache: re-analysing the same text and date returns the stored result without a model call. Results that had to fall back because the model was unavailable are not cached in live mode, so the next identical request tries Gemini again. [cache.ts](server/src/cache.ts)
 - Bounded stores: 200 analyses, one-hour TTL, oldest evicted first.
+- The core package is declared side-effect free, so the intake bundle tree-shakes away the options catalogue, prep sheets and glossary until the demo path actually loads them. [package.json](packages/core/package.json)
+- Hot paths avoid per-call allocation: formatters are built once, the keystroke word counter does not split the text into an array, and the classifier scores each kind in a single pass. [format.ts](web/src/lib/format.ts), [classify.ts](packages/core/src/classify.ts)
+- Store writes are O(1); expired entries are swept only when the map is full, so the scan is amortised over the capacity. [store.ts](server/src/store.ts)
 - One sanitising pass and one sentence split per analysis; every extractor reads the same token list and stops at its cap. [analyze.ts](packages/core/src/analyze.ts)
 - Compact prompts: the analysis sent to Gemini omits the quoted source sentences the model already has in the document block. [prompts.ts](server/src/ai/prompts.ts)
 - Response compression for clients that accept it, and an ETag plus a short private cache on analysis reads. [app.ts](server/src/app.ts)

@@ -35,13 +35,16 @@ const MATCHERS: readonly (readonly [KnownKind, readonly Matcher[]])[] = (
   })),
 ]);
 
+/** Single pass over the matchers: score and signals are accumulated together. */
 function scoreKind(kind: KnownKind, matchers: readonly Matcher[], text: string): KindScore {
-  const hits = matchers.filter((matcher) => matcher.pattern.test(text));
-  return {
-    kind,
-    score: hits.reduce((total, hit) => total + hit.weight, 0),
-    signals: hits.map((hit) => hit.phrase).slice(0, MAX_SIGNALS),
-  };
+  let score = 0;
+  const signals: string[] = [];
+  for (const matcher of matchers) {
+    if (!matcher.pattern.test(text)) continue;
+    score += matcher.weight;
+    if (signals.length < MAX_SIGNALS) signals.push(matcher.phrase);
+  }
+  return { kind, score, signals };
 }
 
 /**

@@ -52,15 +52,25 @@ export function describeConfidence(confidence: number): string {
   return 'Could not tell';
 }
 
-/** Counts whitespace-separated words; mirrors the core's minimum-length check. */
+/** Built once: constructing an Intl formatter per call is far costlier than formatting. */
+const USD = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
+
 /** US-dollar formatting for extracted amounts. */
 export function formatMoney(amount: number): string {
-  return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(amount);
+  return USD.format(amount);
 }
 
+const WORD_RE = /\S+/g;
+
+/**
+ * Counts whitespace-separated words without splitting the text into an array. It runs on
+ * every keystroke in the intake form, so it must not allocate proportional to the document.
+ */
 export function countWords(text: string): number {
-  const trimmed = text.trim();
-  return trimmed === '' ? 0 : trimmed.split(/\s+/).length;
+  let count = 0;
+  WORD_RE.lastIndex = 0;
+  while (WORD_RE.exec(text) !== null) count += 1;
+  return count;
 }
 
 /** Local calendar date as yyyy-mm-dd, the default reference date for a notice received today. */

@@ -17,8 +17,9 @@ interface Entry<V> {
 }
 
 /**
- * Insertion-ordered map with a size cap and a TTL. Expired entries are dropped whenever they
- * are touched or when a write happens, and the oldest entry goes first on overflow.
+ * Insertion-ordered map with a size cap and a TTL. Expired entries are dropped when they are
+ * read, and swept in bulk only when the map is full, so a write is O(1) in the common case
+ * and the full scan is amortised over `maxEntries` inserts. Overflow evicts the oldest.
  * Rationale: memory is the only storage, so both bounds are what keep the process healthy.
  */
 export class BoundedTtlMap<V> {
@@ -42,8 +43,8 @@ export class BoundedTtlMap<V> {
   }
 
   set(key: string, value: V): void {
-    this.evictExpired();
     this.entries.delete(key);
+    if (this.entries.size >= this.maxEntries) this.evictExpired();
     while (this.entries.size >= this.maxEntries) {
       const oldest = this.entries.keys().next().value;
       if (oldest === undefined) break;
