@@ -5,6 +5,7 @@
 <script lang="ts">
   import { DISCLAIMER, type Analysis } from '@docket/core';
   import Intake from './views/Intake.svelte';
+  import ThemeToggle from './components/ThemeToggle.svelte';
 
   type ResultsModule = typeof import('./views/Results.svelte');
 
@@ -35,12 +36,15 @@
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header class="site-header">
-  <div class="container brand">
-    <img class="brand-mark" src="{base}favicon.svg" alt="" width="40" height="43" />
-    <div>
-      <h1>Docket</h1>
-      <p class="tagline">Understand the legal notice you just received.</p>
+  <div class="container site-bar">
+    <div class="brand">
+      <img class="brand-mark" src="{base}favicon.svg" alt="" width="40" height="43" />
+      <div>
+        <h1>Docket</h1>
+        <p class="tagline">Understand the legal notice you just received.</p>
+      </div>
     </div>
+    <ThemeToggle />
   </div>
 </header>
 

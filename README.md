@@ -206,7 +206,7 @@ See [SECURITY.md](SECURITY.md) for the threat model and how to report a vulnerab
 - `aria-live` status line for analysing, done, and error states; `aria-busy` on the analyse button.
 - Focus moves to the results heading after analysis and back to the text field on "Start over"; errors are announced in a `role="alert"` region.
 - `prefers-reduced-motion` disables transitions.
-- `color-scheme: light dark` with AA contrast checked in both schemes.
+- Light and dark schemes follow the system preference, with a header toggle that remembers an explicit choice; AA contrast is checked in both. [ThemeToggle.svelte](web/src/components/ThemeToggle.svelte)
 - Print stylesheet for the prep sheet.
 - The app shell, the Results view, and the severity badge are checked with axe via `vitest-axe` in tests.
 

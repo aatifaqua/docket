@@ -1,23 +1,24 @@
 /* Docket stylesheet: tokens, light/dark, layout, components, print. */
 
 :root {
+  /* Every colour is a light/dark pair; the scheme in force decides which half applies. */
   color-scheme: light dark;
-  --bg: #f7f7f5;
-  --surface: #ffffff;
-  --surface-muted: #ececea;
-  --text: #1b1b1f;
-  --text-muted: #4a4a52;
-  --border: #c9c9c4;
-  --border-strong: #6f6f77;
-  --accent: #4f7a12;
-  --accent-text: #ffffff;
-  --focus: #b45309;
-  --critical-bg: #fee2e2;
-  --critical-text: #9b1c1c;
-  --important-bg: #fef3c7;
-  --important-text: #7c4a03;
-  --info-bg: #e9f2d5;
-  --info-text: #2f4a0a;
+  --bg: light-dark(#f7f7f5, #121317);
+  --surface: light-dark(#ffffff, #1c1e24);
+  --surface-muted: light-dark(#ececea, #262930);
+  --text: light-dark(#1b1b1f, #e8e8ea);
+  --text-muted: light-dark(#4a4a52, #b5b6bd);
+  --border: light-dark(#c9c9c4, #3d404a);
+  --border-strong: light-dark(#6f6f77, #8d909b);
+  --accent: light-dark(#4f7a12, #9bbf46);
+  --accent-text: light-dark(#ffffff, #0f1a05);
+  --focus: light-dark(#b45309, #fbbf24);
+  --critical-bg: light-dark(#fee2e2, #3b0d0d);
+  --critical-text: light-dark(#9b1c1c, #fca5a5);
+  --important-bg: light-dark(#fef3c7, #3a2604);
+  --important-text: light-dark(#7c4a03, #fcd34d);
+  --info-bg: light-dark(#e9f2d5, #1f2c0e);
+  --info-text: light-dark(#2f4a0a, #cde39a);
   --space-1: 0.25rem;
   --space-2: 0.5rem;
   --space-3: 0.75rem;
@@ -35,25 +36,13 @@
   --touch: 2.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #121317;
-    --surface: #1c1e24;
-    --surface-muted: #262930;
-    --text: #e8e8ea;
-    --text-muted: #b5b6bd;
-    --border: #3d404a;
-    --border-strong: #8d909b;
-    --accent: #9bbf46;
-    --accent-text: #0f1a05;
-    --focus: #fbbf24;
-    --critical-bg: #3b0d0d;
-    --critical-text: #fca5a5;
-    --important-bg: #3a2604;
-    --important-text: #fcd34d;
-    --info-bg: #1f2c0e;
-    --info-text: #cde39a;
-  }
+/* An explicit choice from the header toggle overrides the operating-system preference. */
+:root[data-theme='light'] {
+  color-scheme: light;
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
 }
 
 /* Base */
@@ -171,10 +160,22 @@ blockquote {
   margin: 0;
 }
 
+.site-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
 .brand {
   display: flex;
   align-items: center;
   gap: var(--space-3);
+}
+
+.theme-toggle {
+  min-height: var(--touch);
 }
 
 .brand-mark {
